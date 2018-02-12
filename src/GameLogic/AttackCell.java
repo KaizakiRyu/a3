@@ -82,7 +82,7 @@ public class AttackCell {
     }
 
     public void updateCell(Cell currentCell) {
-        
+
     }
 
 
