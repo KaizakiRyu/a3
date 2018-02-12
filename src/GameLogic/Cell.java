@@ -3,26 +3,32 @@ package GameLogic;
 import java.util.ArrayList;
 
 public class Cell {
-    private String name;
-    private String status;
+    private boolean isDestroyed;
+    private int[] cellCoordinate;
+    private final int HORIZONTAL_COORDINATE = 0;
+    private final int VERTICAL_COORDINATE = 1;
 
     public Cell() {
     }
 
-    public String getName() {
-        return name;
+    public boolean getDestroyed() {
+        return isDestroyed;
     }
 
-    public String getStatus() {
-        return status;
+    public void setDestroyed(boolean destroyed) {
+        this.isDestroyed = destroyed;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCellCoordinate(int[] cellCoordinate) {
+        this.cellCoordinate = cellCoordinate;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public int getHorizontalCoordinate(){
+        return cellCoordinate[HORIZONTAL_COORDINATE];
+    }
+
+    public int getVerticalCoordinate(){
+        return cellCoordinate[VERTICAL_COORDINATE];
     }
 
     public boolean isTankCell(ArrayList<Tank> listOfTank, Cell currentCell){
