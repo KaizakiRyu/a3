@@ -18,16 +18,12 @@ public class Tank {
         this.tankDamage = LIST_OF_TANK_DAMAGE[tankDamagePointer];
     }
 
-    public void setTankHealth(boolean damaged){
-        if (damaged){
-            this.tankHealth -= DECREMENT_OF_TANK_HEALTH;
-        }
+    public void setTankHealth(){
+        this.tankHealth -= DECREMENT_OF_TANK_HEALTH;
     }
 
     public void setTankDamage(boolean damaged){
-        if (damaged){
-            this.tankDamage = LIST_OF_TANK_DAMAGE[tankDamagePointer - DECREMENT_OF_TANK_DAMAGE];
-        }
+        this.tankDamage = LIST_OF_TANK_DAMAGE[tankDamagePointer - DECREMENT_OF_TANK_DAMAGE];
     }
 
     public ArrayList<Cell> getListOfTankCell() {
@@ -48,6 +44,10 @@ public class Tank {
             return true;
         }
         return false;
+    }
+
+    public void addTankCell(Cell currentCell){
+        listOfTankCell.add(currentCell);
     }
 
 }
