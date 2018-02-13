@@ -22,7 +22,7 @@ public class Tank {
         this.tankHealth -= DECREMENT_OF_TANK_HEALTH;
     }
 
-    public void setTankDamage(boolean damaged){
+    public void setTankDamage(){
         this.tankDamage = LIST_OF_TANK_DAMAGE[tankDamagePointer - DECREMENT_OF_TANK_DAMAGE];
     }
 
