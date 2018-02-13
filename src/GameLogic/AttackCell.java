@@ -1,10 +1,14 @@
 package GameLogic;
 
+
+//This class checks if the targetted cell is a tank, changes the targetted cell to be destroyed,
+//and determines the result, whether it was a hit or miss.
+
 public class AttackCell {
-    private String targetingCell;
+    private int[] targetingCell;
     private boolean result;
 
-    public AttackCell(String targetingCell) {
+    public AttackCell(int[] targetingCell) {
         this.targetingCell = targetingCell;
         this.result = NULL;
     }
@@ -69,7 +73,7 @@ public class AttackCell {
                 break;
         }
 
-        position[1] = getNumericValue(targetingCell.charAt(1));
+        position[1] = Character.getNumericValue(targetingCell.charAt(1));
 
         return position;
     }
@@ -77,14 +81,43 @@ public class AttackCell {
     //take in gameboard, and check if the targetingCell exists in our gameboard
     public Cell searchCell(Cell[][] gameBoard) {
         int[] cellPosition = toCellPosition(this.targetingCell);
-        Cell currentCell = gameBoard[cellPosition[0]][cellPosition[1]];
-        return currentCell;
+        //check if the cell exists in our gameboard
+        return gameBoard[cellPosition[0]][cellPosition[1]];
     }
 
+    //checks if the targetted cell is a tank and whether it was a hit or miss
+    public boolean isHit(Cell currentCell) {
+        boolean hit = currentCell.isTankCell();
+        if(hit == true) {
+            return true;
+        else {
+                return false;
+        }
+    }
+
+
+    //changes isDestroyed to true for the indicated cell since it is targetted.
     public void updateCell(Cell currentCell) {
-
+        //change the attacked cell to
+        currentCell.setDestroyed(true);
     }
 
+    //getters and setters
+    public boolean getResult() {
+        return this.result;
+    }
+
+    public void setResult(boolean newResult) {
+        this.result = newResult;
+    }
+
+    public String getTargetingCell() {
+        return this.targetingCell;
+    }
+
+    public void setTargetingCell(String newTargetingCell) {
+        this.targetingCell =  newTargetingCell;
+    }
 
 
 
