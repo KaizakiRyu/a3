@@ -10,7 +10,7 @@ public class AttackCell {
 
     public AttackCell(int[] targetingCell) {
         this.targetingCell = targetingCell;
-        this.result = NULL;
+        this.result = null;
     }
 
     //move this function to userinput class

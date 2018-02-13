@@ -14,8 +14,20 @@ public class Board {
             this.cheat = true;
         }
         this.fortress = new Fortress();
-        this.gameBoard = new Cell[GRID_DIMENSION][GRID_DIMENSION];
         this.listOfTanks = new TankPlacement(numberOfTanks);
-        this.gameBoard = listOfTanks.placeAllTanks(cheat);
+        this.gameBoard = initializeBoard();
+        this.gameBoard = listOfTanks.placeAllTanks(cheat,this.gameBoard);
+    }
+
+    private Cell[][] initializeBoard(){
+        Cell[][] gameBoard = new Cell[GRID_DIMENSION][GRID_DIMENSION];
+        //Set coordinate for all Cell within the gameBoard
+        for (int row = INITIALIZER; row < GRID_DIMENSION; row++){
+            for (int column = INITIALIZER; column < GRID_DIMENSION; column++){
+                int cellCoordinate[] = new int[]{row,column};
+                gameBoard[row][column].setCellCoordinate(cellCoordinate);
+            }
+        }
+        return gameBoard;
     }
 }

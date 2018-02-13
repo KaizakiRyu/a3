@@ -9,6 +9,7 @@ public class Cell {
     private final int VERTICAL_COORDINATE = 1;
 
     public Cell() {
+        this.isDestroyed = false;
     }
 
     public boolean getDestroyed() {
@@ -29,6 +30,10 @@ public class Cell {
 
     public int getVerticalCoordinate(){
         return cellCoordinate[VERTICAL_COORDINATE];
+    }
+
+    public int[] getCellCoordinate() {
+        return cellCoordinate;
     }
 
     public boolean isTankCell(ArrayList<Tank> listOfTank, Cell currentCell){
