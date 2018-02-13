@@ -26,6 +26,7 @@ public class Board {
             for (int column = INITIALIZER; column < GRID_DIMENSION; column++){
                 int cellCoordinate[] = new int[]{row,column};
                 gameBoard[row][column].setCellCoordinate(cellCoordinate);
+                gameBoard[row][column].setDestroyed(false);
             }
         }
         return gameBoard;
