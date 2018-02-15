@@ -24,6 +24,7 @@ public class Board {
         tankPlacement.placeAllTanks(this.gameBoard);
     }
 
+    //creates a newGameBoard and sets its cell coordinates and sets the cell display
     private Cell[][] initializeBoard(){
         Cell[][] gameBoard = new Cell[GRID_DIMENSION][GRID_DIMENSION];
         //Set coordinate for all Cell within the gameBoard
@@ -42,6 +43,8 @@ public class Board {
         return gameBoard;
     }
 
+    //takes in a coordinate in the form of a string, and converts it to a numerical index
+    //eg. A1 -> 0,0
     public int[] convertCoordinateToInt(String targetingCell) {
         int[] position = new int[CORDINATES_OF_A_CELL];
 
@@ -49,72 +52,15 @@ public class Board {
         char firstChar = targetingCell.charAt(HORIZONTAL_COORDINATE);
 
         position[HORIZONTAL_COORDINATE] = charAlphabetConversion(firstChar);
-        position[VERTICAL_COORDINATE] = Character.getNumericValue(targetingCell.charAt(VERTICAL_COORDINATE));
+        position[VERTICAL_COORDINATE] = Character.getNumericValue(targetingCell.charAt(VERTICAL_COORDINATE)) - 1;
 
         return position;
     }
 
-//    private int charAlphabetConversion(char currentCharacter){
-//        int position;
-//        String convertedFirstChar = Character.toString(currentCharacter);
-//        switch (convertedFirstChar) {
-//            case "a":
-//            case "A":
-//                position = 0;
-//                break;
-//
-//            case "b":
-//            case "B":
-//                position = 1;
-//                break;
-//
-//            case "c":
-//            case "C":
-//                position = 2;
-//                break;
-//
-//            case "d":
-//            case "D":
-//                position = 3;
-//                break;
-//
-//            case "e":
-//            case "E":
-//                position = 4;
-//                break;
-//
-//            case "f":
-//            case "F":
-//                position = 5;
-//                break;
-//
-//            case "g":
-//            case "G":
-//                position = 6;
-//                break;
-//
-//            case "h":
-//            case "H":
-//                position = 7;
-//                break;
-//
-//            case "i":
-//            case "I":
-//                position = 8;
-//                break;
-//
-//            case "j":
-//            case "J":
-//                position = 9;
-//                break;
 
-//            default:
-//                position = -1;
-//                break;
-//        }
-//        return position;
-//    }
-
+    //helper function for convertCoordinateToInt
+    //converts string to its numerical value for our numerical coordinates
+    //eg. A || a -> 0
     private int charAlphabetConversion(char currentCharacter){
         int position;
         String convertedFirstChar = Character.toString(currentCharacter);
@@ -167,22 +113,7 @@ public class Board {
         return position;
     }
 
-    public Fortress getFortress() {
-        return fortress;
-    }
-
-    public TankPlacement getTankPlacement() {
-        return tankPlacement;
-    }
-
-    public Cell[][] getGameBoard() {
-        return gameBoard;
-    }
-
-    public AttackCell getCurrentPlayerAttack() {
-        return currentPlayerAttack;
-    }
-
+    //executes an attack on a cell, takes in an AttackCell object
     public void userAttack(AttackCell currentPlayerAttack){
         Cell currentCell = currentPlayerAttack.searchCell(gameBoard);
         ArrayList<Tank> listOfTanks = tankPlacement.getListOfTanks();
@@ -199,4 +130,23 @@ public class Board {
         }
         currentCell.setCellDisplay(" ");
     }
+
+    // getters and setters
+    public Fortress getFortress() {
+        return this.fortress;
+    }
+
+    public TankPlacement getTankPlacement() {
+        return this.tankPlacement;
+    }
+
+    public Cell[][] getGameBoard() {
+        return this.gameBoard;
+    }
+
+    public AttackCell getCurrentPlayerAttack() {
+        return this.currentPlayerAttack;
+    }
+
+
 }

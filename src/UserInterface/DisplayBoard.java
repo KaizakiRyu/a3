@@ -50,6 +50,7 @@ public class DisplayBoard {
             System.out.println("Alive tank #" + currentTank.getTankID() + "of " + listOfTanks);
             gameFortress.setFortressHealth(currentTank.getTankDamage());
         }
-
     }
 }
+
+

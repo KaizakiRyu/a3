@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class TankPlacement {
     private ArrayList<Tank> listOfTanks;
+    private ArrayList<Tank> listOfAliveTanks;
     private boolean cheat;
     private int numberOfTanks;
     private final int INITIALIZER = 0;
@@ -31,6 +32,7 @@ public class TankPlacement {
         int range = (max - min) + 1;
         return (int)(Math.random() * range) + min;
     }
+
 
     // place all tanks into the game board
     public void placeAllTanks(Cell[][] gameBoard){
