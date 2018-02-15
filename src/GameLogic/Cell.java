@@ -3,6 +3,7 @@ package GameLogic;
 import java.util.ArrayList;
 
 public class Cell {
+    private String cellDisplay;
     private boolean isDestroyed;
     private int[] cellCoordinate;
     private final int HORIZONTAL_COORDINATE = 0;
@@ -22,6 +23,14 @@ public class Cell {
 
     public void setCellCoordinate(int[] cellCoordinate) {
         this.cellCoordinate = cellCoordinate;
+    }
+
+    public void setCellDisplay(String cellDisplay) {
+        this.cellDisplay = cellDisplay;
+    }
+
+    public String getCellDisplay() {
+        return cellDisplay;
     }
 
     public int getHorizontalCoordinate(){

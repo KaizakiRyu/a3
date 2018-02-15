@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class TankPlacement {
     private ArrayList<Tank> listOfTanks;
+    private boolean cheat;
     private int numberOfTanks;
     private final int INITIALIZER = 0;
     private final int GRID_DIMENSION = 10;
@@ -19,9 +20,11 @@ public class TankPlacement {
     private final int NUM_DIFF_SHAPES = 7;
     private final int STARTING_SHAPE = 1;
     private final int T_SHAPE = 7;
+    private final int TANK_NUMBERING_OFFSET = 1;
 
-    public TankPlacement(int numberOfTanks) {
+    public TankPlacement(int numberOfTanks, boolean cheat) {
         this.numberOfTanks = numberOfTanks;
+        this.cheat = cheat;
     }
 
     public int randomNum(int min, int max){
@@ -30,15 +33,13 @@ public class TankPlacement {
     }
 
     // place all tanks into the game board
-    public void placeAllTanks(boolean cheat, Cell[][] gameBoard){
+    public void placeAllTanks(Cell[][] gameBoard){
         for (int index = INITIALIZER; index < numberOfTanks; index++) {
-            Tank currentTank = new Tank();
+            Tank currentTank = new Tank(index + TANK_NUMBERING_OFFSET);
             listOfTanks.add(currentTank);
             Cell firstTankCell = generateRandomTankCell(gameBoard);
             currentTank.addTankCell(firstTankCell);
             growTankCell(firstTankCell, gameBoard, currentTank);
-
-
         }
     }
 
@@ -46,17 +47,17 @@ public class TankPlacement {
         Cell currentTankCell = firstTankCell;
         ArrayList<Cell> adjacentCells;
         int tankShape = randomNum(STARTING_SHAPE,NUM_DIFF_SHAPES);
-            for (int cellPosition = INITIALIZER; cellPosition < MAX_NUMBER_OF_TANK_CELL; cellPosition++) {
-                adjacentCells = getAdjacentCells(currentTankCell, gameBoard);
-                if (tankShape == T_SHAPE){
-                    if (!placeTShape(adjacentCells, currentTankCell, gameBoard, currentTank)){
-                        break;
-                    }
+        for (int cellPosition = INITIALIZER; cellPosition < MAX_NUMBER_OF_TANK_CELL; cellPosition++) {
+            adjacentCells = getAdjacentCells(currentTankCell, gameBoard);
+            if (tankShape == T_SHAPE){
+                if (!placeTShape(adjacentCells, currentTankCell, gameBoard, currentTank)){
+                    break;
                 }
-                int nextCell = (int) Math.ceil(Math.random() * (adjacentCells.size() - CELL_OFFSET));
-                currentTankCell = adjacentCells.get(nextCell);
-                currentTank.addTankCell(currentTankCell);
             }
+            int nextCell = (int) Math.ceil(Math.random() * (adjacentCells.size() - CELL_OFFSET));
+            currentTankCell = adjacentCells.get(nextCell);
+            currentTank.addTankCell(currentTankCell);
+        }
     }
 
     private boolean placeTShape(ArrayList<Cell> adjacentCells, Cell currentCell, Cell[][] gameBoard, Tank currentTank){

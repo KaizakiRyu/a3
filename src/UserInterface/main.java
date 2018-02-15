@@ -19,7 +19,7 @@ public class main {
             cheat = false;
         } else {
             numOfTanks = Integer.parseInt(args[FIRST_ARGUMENT]);
-            if (args.length == MAX_NUM_ARGS && (args[1].equals(CHEAT_CODE))){
+            if (args.length == MAX_NUM_ARGS && (args[SECOND_ARGUMENT].toLowerCase().equals(CHEAT_CODE))){
                 cheat = true;
             } else {
                 cheat = false;
