@@ -27,11 +27,18 @@ public class Board {
     private Cell[][] initializeBoard(){
         Cell[][] gameBoard = new Cell[GRID_DIMENSION][GRID_DIMENSION];
         //Set coordinate for all Cell within the gameBoard
+
+//        for (int row = INITIALIZER; row < GRID_DIMENSION; row++){
+//            for (int column = INITIALIZER; column < GRID_DIMENSION; column++){
+//                System.out.println(gameBoard.toString());
+//            }
+//        }
+
         for (int row = INITIALIZER; row < GRID_DIMENSION; row++){
             for (int column = INITIALIZER; column < GRID_DIMENSION; column++){
                 int cellCoordinate[] = new int[]{row,column};
+                gameBoard[row][column] = new Cell();
                 gameBoard[row][column].setCellCoordinate(cellCoordinate);
-                gameBoard[row][column].setDestroyed(false);
                 if (this.cheat){
                     gameBoard[row][column].setCellDisplay(".");
                 } else {
@@ -53,67 +60,6 @@ public class Board {
 
         return position;
     }
-
-//    private int charAlphabetConversion(char currentCharacter){
-//        int position;
-//        String convertedFirstChar = Character.toString(currentCharacter);
-//        switch (convertedFirstChar) {
-//            case "a":
-//            case "A":
-//                position = 0;
-//                break;
-//
-//            case "b":
-//            case "B":
-//                position = 1;
-//                break;
-//
-//            case "c":
-//            case "C":
-//                position = 2;
-//                break;
-//
-//            case "d":
-//            case "D":
-//                position = 3;
-//                break;
-//
-//            case "e":
-//            case "E":
-//                position = 4;
-//                break;
-//
-//            case "f":
-//            case "F":
-//                position = 5;
-//                break;
-//
-//            case "g":
-//            case "G":
-//                position = 6;
-//                break;
-//
-//            case "h":
-//            case "H":
-//                position = 7;
-//                break;
-//
-//            case "i":
-//            case "I":
-//                position = 8;
-//                break;
-//
-//            case "j":
-//            case "J":
-//                position = 9;
-//                break;
-
-//            default:
-//                position = -1;
-//                break;
-//        }
-//        return position;
-//    }
 
     private int charAlphabetConversion(char currentCharacter){
         int position;
@@ -185,14 +131,16 @@ public class Board {
 
     public void userAttack(AttackCell currentPlayerAttack){
         Cell currentCell = currentPlayerAttack.searchCell(gameBoard);
-        ArrayList<Tank> listOfTanks = tankPlacement.getListOfTanks();
-        for (Tank currentTank : listOfTanks){
+        ArrayList<Tank> listOfAliveTanks = tankPlacement.getListOfAliveTanks();
+        for (Tank currentTank : listOfAliveTanks){
             if (currentTank.getListOfTankCell().contains(currentCell)){
                 if (!currentTank.isDestroyed()) {
                     currentTank.setTankHealth();
                     currentTank.setTankDamage();
                     currentPlayerAttack.updateCell(currentCell);
                     this.currentPlayerAttack = currentPlayerAttack;
+                } else {
+                    listOfAliveTanks.remove(currentTank);
                 }
                 return;
             }

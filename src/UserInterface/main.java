@@ -10,6 +10,7 @@ public class main {
     private static final int SECOND_ARGUMENT = 1;
     private static final int MIN_NUMBER_OF_TANK = 0;
     private static final String CHEAT_CODE = "--cheat";
+
     public static void main(String args[]){
         //set the number of tanks in this game.
         int numOfTanks;
@@ -27,6 +28,5 @@ public class main {
         }
         DisplayBoard displayBoard = new DisplayBoard(numOfTanks,cheat);
         displayBoard.startGame();
-
     }
 }

@@ -10,7 +10,9 @@ public class Cell {
     private final int VERTICAL_COORDINATE = 1;
 
     public Cell() {
+        this.cellDisplay = "~";
         this.isDestroyed = false;
+        this.cellCoordinate = new int[] {-1,-1};
     }
 
     public boolean getDestroyed() {
