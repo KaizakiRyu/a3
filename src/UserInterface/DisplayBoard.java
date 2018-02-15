@@ -15,8 +15,8 @@ public class DisplayBoard {
     private final int HORIZONTAL_COORDINATE = 0;
     private final int VERTICAL_COORDINATE = 1;
     private final int OUT_OF_BOUND_HORIZONTAL_COORDINATE = -1;
-    private final int MIN_VERTICAL_COORDINATE = 1;
-    private final int MAX_VERTICAL_COORDINATE = 10;
+    private final int MIN_VERTICAL_COORDINATE = 0;
+    private final int MAX_VERTICAL_COORDINATE = 9;
     private final int ROW_NUMBERING_OFFSET = 65;
     private final int GRID_OFFSET = 1;
 
@@ -28,8 +28,8 @@ public class DisplayBoard {
     public void startGame() {
         Fortress gameFortress = board.getFortress();
         int fortressHealth = gameFortress.getFortressHealth();
-        ArrayList<Tank> listOfTanks = board.getTankPlacement().getListOfTanks();
-        displayInitialBoard();
+        ArrayList<Tank> listOfTanks = board.getTankPlacement().getListOfAliveTanks();
+        displayInitialBoard(listOfTanks);
         do {
             System.out.print("Enter your move: ");
             Scanner reader = new Scanner(System.in);
@@ -48,7 +48,7 @@ public class DisplayBoard {
         } while(fortressHealth > MIN_FORTRESS_HEALTH || listOfTanks.size() > MIN_AMOUNT_OF_TANK);
     }
 
-    private void displayInitialBoard() {
+    private void displayInitialBoard(ArrayList<Tank> listOfTanks) {
         Cell[][] gameBoard = board.getGameBoard();
         System.out.print("  ");
         for (int columnIndex = (GRID_INITIALIZER + GRID_OFFSET); columnIndex <= GRID; columnIndex++){
@@ -59,7 +59,15 @@ public class DisplayBoard {
             char rowIndex = (char) (row + ROW_NUMBERING_OFFSET);
             System.out.print(rowIndex + " ");
             for (int column = GRID_INITIALIZER; column < GRID; column++){
-                System.out.print(gameBoard[row][column].getCellDisplay() + " ");
+                if (board.isCheat()) {
+                    if (gameBoard[row][column].isTankCell()){
+                        System.out.print(gameBoard[row][column].getId() + " ");
+                    } else {
+                        System.out.print(". ");
+                    }
+                } else {
+                    System.out.print(gameBoard[row][column].getCellDisplay() + " ");
+                }
             }
             System.out.println();
         }
@@ -85,7 +93,7 @@ public class DisplayBoard {
         int index = TANK_NUMBERING_INITIALIZER;
         for (Tank currentTank : listOfTanks){
             int tankDamage = currentTank.getTankDamage();
-            System.out.println("Alive tank # " + index + " of " + listOfTanks.size() + "shot you for " + currentTank.getTankDamage() + "!");
+            System.out.println("Alive tank # " + index + " of " + listOfTanks.size() + " shot you for " + currentTank.getTankDamage() + "!");
             gameFortress.setFortressHealth(tankDamage);
             index++;
         }

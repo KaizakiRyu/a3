@@ -39,11 +39,7 @@ public class Board {
                 int cellCoordinate[] = new int[]{row,column};
                 gameBoard[row][column] = new Cell();
                 gameBoard[row][column].setCellCoordinate(cellCoordinate);
-                if (this.cheat){
-                    gameBoard[row][column].setCellDisplay(".");
-                } else {
-                    gameBoard[row][column].setCellDisplay("~");
-                }
+                gameBoard[row][column].setCellDisplay("~");
             }
         }
         return gameBoard;
@@ -51,14 +47,25 @@ public class Board {
 
     public int[] convertCoordinateToInt(String targetingCell) {
         int[] position = new int[CORDINATES_OF_A_CELL];
+        if (targetingCell.length() > 3){
+            position[HORIZONTAL_COORDINATE] = -1;
+            position[VERTICAL_COORDINATE] = -1;
+            return position;
+        } else {
+            //get the first character from targetingCell
+            char firstChar = targetingCell.charAt(HORIZONTAL_COORDINATE);
 
-        //get the first character from targetingCell
-        char firstChar = targetingCell.charAt(HORIZONTAL_COORDINATE);
-
-        position[HORIZONTAL_COORDINATE] = charAlphabetConversion(firstChar);
-        position[VERTICAL_COORDINATE] = Character.getNumericValue(targetingCell.charAt(VERTICAL_COORDINATE));
-
-        return position;
+            position[HORIZONTAL_COORDINATE] = charAlphabetConversion(firstChar);
+            if (targetingCell.length() == 3){
+                String verticalCoordinate = targetingCell.substring(1);
+                position[VERTICAL_COORDINATE] = (Integer.parseInt(verticalCoordinate) - 1);
+            } else {
+                position[VERTICAL_COORDINATE] = Character.getNumericValue(targetingCell.charAt(VERTICAL_COORDINATE)) - 1;
+            }
+            System.out.println("Attack Coor Row " + position[HORIZONTAL_COORDINATE]);
+            System.out.println("Attack Coor Column " + position[VERTICAL_COORDINATE]);
+            return position;
+        }
     }
 
     private int charAlphabetConversion(char currentCharacter){
@@ -146,5 +153,9 @@ public class Board {
             }
         }
         currentCell.setCellDisplay(" ");
+    }
+
+    public boolean isCheat() {
+        return cheat;
     }
 }
