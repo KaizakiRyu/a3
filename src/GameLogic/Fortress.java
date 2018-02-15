@@ -14,4 +14,8 @@ public class Fortress {
     public void setFortressHealth(int tankDamage){
         this.fortressHealth -=tankDamage;
     }
+
+    public int getFortressHealth() {
+        return fortressHealth;
+    }
 }
