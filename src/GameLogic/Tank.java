@@ -30,6 +30,10 @@ public class Tank {
         return listOfTankCell;
     }
 
+    public void addTankCell(Cell currentCell){
+        listOfTankCell.add(currentCell);
+    }
+
     public int getTankHealth() {
         return tankHealth;
     }
@@ -44,10 +48,6 @@ public class Tank {
             return true;
         }
         return false;
-    }
-
-    public void addTankCell(Cell currentCell){
-        listOfTankCell.add(currentCell);
     }
 
 }

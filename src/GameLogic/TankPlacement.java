@@ -37,6 +37,8 @@ public class TankPlacement {
             Cell firstTankCell = generateRandomTankCell(gameBoard);
             currentTank.addTankCell(firstTankCell);
             growTankCell(firstTankCell, gameBoard, currentTank);
+
+
         }
     }
 
@@ -47,7 +49,7 @@ public class TankPlacement {
             for (int cellPosition = INITIALIZER; cellPosition < MAX_NUMBER_OF_TANK_CELL; cellPosition++) {
                 adjacentCells = getAdjacentCells(currentTankCell, gameBoard);
                 if (tankShape == T_SHAPE){
-                    if (placeTShape(adjacentCells, currentTankCell)){
+                    if (!placeTShape(adjacentCells, currentTankCell, gameBoard, currentTank)){
                         break;
                     }
                 }
@@ -57,14 +59,14 @@ public class TankPlacement {
             }
     }
 
-    private boolean placeTShape(ArrayList<Cell> adjacentCells, Cell currentCell){
+    private boolean placeTShape(ArrayList<Cell> adjacentCells, Cell currentCell, Cell[][] gameBoard, Tank currentTank){
         int[] currentPosition = currentCell.getCellCoordinate();
 
         //arrays of coordinates that surrounds the target cell that can make a tShape
-        int[][] tShapeLeft = new int[3][2];
-        int[][] tShapeTop = new int[3][2];
-        int[][] tShapeRight = new int[3][2];
-        int[][] tShapeBottom = new int[3][2];
+//        int[][] tShapeLeft = new int[3][2];
+//        int[][] tShapeTop = new int[3][2];
+//        int[][] tShapeRight = new int[3][2];
+//        int[][] tShapeBottom = new int[3][2];
 
         //coordinates of all adjacent Cells
         int [][] adjCellCoords = new int[4][2];
@@ -76,64 +78,101 @@ public class TankPlacement {
             index++;
         }
 
-        tShapeLeft[][] = {  { currentPosition[0] - 1, currentPosition[1]}, //bottom celll
+        int[][] tShapeLeft ={  { currentPosition[0] - 1, currentPosition[1]}, //bottom cell
                             { currentPosition[0], currentPosition[1] - 1}, //left cell
-                            { currentPosition[0] + 1, currentPosition[1] },//top cell
+                            { currentPosition[0] + 1, currentPosition[1]}//top cell
         };
 
-        tShapeTop[][] = {   { currentPosition[0], currentPosition[1] - 1}, //left cell
+        int[][] tShapeTop = {   { currentPosition[0], currentPosition[1] - 1}, //left cell
                             { currentPosition[0] + 1, currentPosition[1] },//top cell
                             { currentPosition[0], currentPosition[1] + 1 } //right cell
         };
 
-        tShapeRight[][] = { { currentPosition[0] - 1, currentPosition[1]}, //bottom celll
+        int[][] tShapeRight = { { currentPosition[0] - 1, currentPosition[1]}, //bottom celll
                             { currentPosition[0], currentPosition[1] + 1}, //right cell
-                            { currentPosition[0] + 1, currentPosition[1] },//top cell
+                            { currentPosition[0] + 1, currentPosition[1] }//top cell
         };
 
-        tShapeBottom[][] = {   { currentPosition[0], currentPosition[1] - 1}, //left cell
+        int[][] tShapeBottom = { { currentPosition[0], currentPosition[1] - 1}, //left cell
                             { currentPosition[0] - 1, currentPosition[1] },//bottom cell
                             { currentPosition[0], currentPosition[1] + 1 } //right cell
         };
 
-        new int[]{currentCell.getHorizontalCoordinate() - CELL_OFFSET, currentCell.getVerticalCoordinate()};
 
+        // check to see if the tshape is compatible with our validated adj cells
+        // if true, then place tshape in that formation and return true
+        // else return false if all cases do not work
 
-        if ()
-        return true;
+        if(isSubset(adjCellCoords, tShapeLeft)) {
+            return placeTshapeHelper(tShapeLeft, gameBoard, currentTank);
+        }
+        else if(isSubset(adjCellCoords,tShapeTop)) {
+            return placeTshapeHelper(tShapeTop, gameBoard, currentTank);
+        }
+        else if(isSubset(adjCellCoords, tShapeRight)) {
+            return placeTshapeHelper(tShapeRight, gameBoard, currentTank);
+        }
+        else if(isSubset(adjCellCoords, tShapeBottom)) {
+            return placeTshapeHelper(tShapeBottom, gameBoard, currentTank);
+        }
+        else {
+            return false;
+        }
+
     }
 
-    /* Return true if arr2[] is a subset of arr1[] */
+    //checks if tShape is a subset of adjCellCoords
     private boolean isSubset(int adjCellCoords[][], int tShape[][])
     {
         int i = 0;
         int j = 0;
+        int counter = 0;
 
         //loop through tshape, for each tshape, check the possible coords and see if there is a match
         for (i=0; i< tShape.length; i++)
         {
-            int counter = 0;
             for (j = 0; j<adjCellCoords.length; j++)
             {
-                if(tShape[i][] == adjCellCoords[j][]) {
+                if(tShape[i][0] == adjCellCoords[j][0] && tShape[i][1] == adjCellCoords[j][1]) {
                     counter++;
                 }
             }
-
-            if(counter >= 3) {
-                return true;
-            }
-
-            /* If the above inner loop was not
-               broken at all then arr2[i] is not
-               present in arr1[] */
-            if (j == m)
-                return false;
         }
 
-        /* If we reach here then all elements
-           of arr2[] are present in arr1[] */
-        return true;
+        //if all the outer cells of the tShape are confirmed to be valid adjacent cells, return true,
+            //else return false
+        if(counter == tShape.length) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    // places tanks in the specified tshape formation, onto the gameboard
+    private boolean placeTshapeHelper(int[][] tShape, Cell[][] gameBoard, Tank currentTank) {
+        //loop through each coordinate in tShape
+        //place new tank onto the gameboard with the given coordinates
+        //insert the tank cell into our current tank
+        for(int i = 0; i < tShape.length; i++) {
+            //set the cell coordinates of this cell
+            int element1 = tShape[i][0];
+            int element2 = tShape[i][1];
+            int[] thisCellCoord = {element1,element2};
+            gameBoard[tShape[i][0]][tShape[i][1]].setCellCoordinate(thisCellCoord);
+            currentTank.addTankCell(gameBoard[tShape[i][0]][tShape[i][1]]);
+        }
+
+        boolean flag = true;
+        //check that the tshape coordinates is not null;
+        for(int i = 0; i < tShape.length; i++) {
+            if(gameBoard[tShape[i][0]][tShape[i][1]].getCellCoordinate() == null
+                    || currentTank.getListOfTankCell() == null) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
     }
 
 
