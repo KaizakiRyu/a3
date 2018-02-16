@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Tank {
     private ArrayList<Cell> listOfTankCell;
-    private int tankID;
+    private char tankID;
     private int tankHealth;
     private int tankDamage;
     private int tankDamagePointer = 4;
@@ -14,13 +14,14 @@ public class Tank {
     private final int DECREMENT_OF_TANK_DAMAGE = 1;
     private final int[] LIST_OF_TANK_DAMAGE= {0, 1, 2, 5, 20};
 
-    public Tank(int id) {
+    public Tank(char id) {
+        this.listOfTankCell = new ArrayList<>();
         this.tankHealth = MAX_TANK_HEALTH;
         this.tankDamage = LIST_OF_TANK_DAMAGE[tankDamagePointer];
         this.tankID = id;
     }
 
-    public int getTankID() {
+    public char getTankID() {
         return tankID;
     }
 

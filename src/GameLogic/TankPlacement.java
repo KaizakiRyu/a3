@@ -1,6 +1,8 @@
 package GameLogic;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.concurrent.*;
 
 /**
  * Class TankPlacement is responsible for placing all Tanks and return
@@ -16,14 +18,15 @@ public class TankPlacement {
     private final int GRID_DIMENSION = 10;
     private final int MAX_CELL_VALUE = 9;
     private final int MIN_CELL_VALUE = 0;
-    private final int MAX_NUMBER_OF_TANK_CELL = 4;
+    private final int MAX_NUMBER_OF_TANK_CELL = 3;
     private final int CELL_OFFSET = 1;
     private final int NUM_DIFF_SHAPES = 7;
     private final int STARTING_SHAPE = 1;
     private final int T_SHAPE = 7;
-    private final int TANK_NUMBERING_OFFSET = 1;
+    private final int TANK_NUMBERING_OFFSET = 65;
 
     public TankPlacement(int numberOfTanks, boolean cheat) {
+        this.listOfTanks = new ArrayList<>();
         this.numberOfTanks = numberOfTanks;
         this.cheat = cheat;
     }
@@ -36,13 +39,42 @@ public class TankPlacement {
 
     // place all tanks into the game board
     public void placeAllTanks(Cell[][] gameBoard){
+        System.out.println("Placing Tank");
         for (int index = INITIALIZER; index < numberOfTanks; index++) {
-            Tank currentTank = new Tank(index + TANK_NUMBERING_OFFSET);
+            char tankId = (char) (index + TANK_NUMBERING_OFFSET);
+            Tank currentTank = new Tank(tankId);
             listOfTanks.add(currentTank);
-            Cell firstTankCell = generateRandomTankCell(gameBoard);
-            currentTank.addTankCell(firstTankCell);
-            growTankCell(firstTankCell, gameBoard, currentTank);
+            ExecutorService service = Executors.newSingleThreadExecutor();
+            try {
+                Runnable r = new Runnable() {
+                    @Override
+                    public void run() {
+                        Cell firstTankCell = generateRandomTankCell(gameBoard);
+                        firstTankCell.setTankCell(true);
+                        firstTankCell.setId(tankId);
+                        currentTank.addTankCell(firstTankCell);
+                        growTankCell(firstTankCell, gameBoard, currentTank);
+                    }
+                };
+
+                Future<?> f = service.submit(r);
+
+                f.get(60, TimeUnit.SECONDS);     // attempt the task for 60 seconds
+            } catch (final InterruptedException e) {
+                // The thread was interrupted during sleep, wait or join
+            }
+            catch (final TimeoutException e) {
+                // Took too long!
+            }
+            catch (final ExecutionException e) {
+                // An exception from within the Runnable task
+            }
+            finally {
+                service.shutdown();
+            }
         }
+        System.out.println("Done Placing");
+        this.listOfAliveTanks = this.listOfTanks;
     }
 
     private void growTankCell(Cell firstTankCell, Cell[][] gameBoard, Tank currentTank) {
@@ -51,16 +83,28 @@ public class TankPlacement {
         int tankShape = randomNum(STARTING_SHAPE,NUM_DIFF_SHAPES);
         for (int cellPosition = INITIALIZER; cellPosition < MAX_NUMBER_OF_TANK_CELL; cellPosition++) {
             adjacentCells = getAdjacentCells(currentTankCell, gameBoard);
+            if(adjacentCells.size() == 0) {
+                return;
+            }
+            //if 
             if (tankShape == T_SHAPE){
+                System.out.println("Making T shape");
                 if (!placeTShape(adjacentCells, currentTankCell, gameBoard, currentTank)){
                     break;
                 }
             }
-            int nextCell = (int) Math.ceil(Math.random() * (adjacentCells.size() - CELL_OFFSET));
-            currentTankCell = adjacentCells.get(nextCell);
-            currentTank.addTankCell(currentTankCell);
+            else {
+//            int nextCell = (int) Math.ceil(Math.random() * (adjacentCells.size() - CELL_OFFSET));
+                System.out.println("Making a regular one with " + currentTankCell.getId());
+                int nextCell = (int) Math.ceil(Math.random() * (adjacentCells.size() - CELL_OFFSET));
+                currentTankCell = adjacentCells.get(nextCell);
+                currentTankCell.setId(firstTankCell.getId());
+                currentTankCell.setTankCell(true);
+                currentTank.addTankCell(currentTankCell);
+            }
         }
     }
+
 
     private boolean placeTShape(ArrayList<Cell> adjacentCells, Cell currentCell, Cell[][] gameBoard, Tank currentTank){
         int[] currentPosition = currentCell.getCellCoordinate();
@@ -163,6 +207,8 @@ public class TankPlacement {
             int element2 = tShape[i][1];
             int[] thisCellCoord = {element1,element2};
             gameBoard[tShape[i][0]][tShape[i][1]].setCellCoordinate(thisCellCoord);
+            gameBoard[tShape[i][0]][tShape[i][1]].setId(currentTank.getTankID());
+            gameBoard[tShape[i][0]][tShape[i][1]].setTankCell(true);
             currentTank.addTankCell(gameBoard[tShape[i][0]][tShape[i][1]]);
         }
 
@@ -188,7 +234,7 @@ public class TankPlacement {
             firstCellRow = (int) (Math.random() * MAX_CELL_VALUE);
             firstCellColumn = (int) (Math.random() * MAX_CELL_VALUE);
             currentCell = gameBoard[firstCellRow][firstCellColumn];
-        } while (firstCellRow == GRID_DIMENSION || firstCellColumn == GRID_DIMENSION || currentCell.isTankCell(listOfTanks,currentCell));
+        } while (firstCellRow == GRID_DIMENSION || firstCellColumn == GRID_DIMENSION || currentCell.isTankCell());
         return currentCell;
     }
 
@@ -213,7 +259,7 @@ public class TankPlacement {
             allAdjacentCell.add(gameBoard[currentTankCellHorizontalCoordinate][currentTankCellVerticalCoordinate - CELL_OFFSET]);
         }
         for (Cell currentCell : allAdjacentCell){
-            if (!currentCell.isTankCell(listOfTanks,currentTankCell)){
+            if (!currentCell.isTankCell()){
                 validAdjacentCell.add(currentCell);
             }
         }
@@ -247,8 +293,8 @@ public class TankPlacement {
         return true;
     }
 
-    private void placeTank(){
-
+    public ArrayList<Tank> getListOfAliveTanks() {
+        return listOfAliveTanks;
     }
 
     public ArrayList<Tank> getListOfTanks() {

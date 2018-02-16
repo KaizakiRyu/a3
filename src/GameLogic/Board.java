@@ -24,43 +24,50 @@ public class Board {
         tankPlacement.placeAllTanks(this.gameBoard);
     }
 
-    //creates a newGameBoard and sets its cell coordinates and sets the cell display
     private Cell[][] initializeBoard(){
         Cell[][] gameBoard = new Cell[GRID_DIMENSION][GRID_DIMENSION];
         //Set coordinate for all Cell within the gameBoard
+
+//        for (int row = INITIALIZER; row < GRID_DIMENSION; row++){
+//            for (int column = INITIALIZER; column < GRID_DIMENSION; column++){
+//                System.out.println(gameBoard.toString());
+//            }
+//        }
+
         for (int row = INITIALIZER; row < GRID_DIMENSION; row++){
             for (int column = INITIALIZER; column < GRID_DIMENSION; column++){
                 int cellCoordinate[] = new int[]{row,column};
+                gameBoard[row][column] = new Cell();
                 gameBoard[row][column].setCellCoordinate(cellCoordinate);
-                gameBoard[row][column].setDestroyed(false);
-                if (this.cheat){
-                    gameBoard[row][column].setCellDisplay(".");
-                } else {
-                    gameBoard[row][column].setCellDisplay("~");
-                }
+                gameBoard[row][column].setCellDisplay("~");
             }
         }
         return gameBoard;
     }
 
-    //takes in a coordinate in the form of a string, and converts it to a numerical index
-    //eg. A1 -> 0,0
     public int[] convertCoordinateToInt(String targetingCell) {
         int[] position = new int[CORDINATES_OF_A_CELL];
+        if (targetingCell.length() > 3){
+            position[HORIZONTAL_COORDINATE] = -1;
+            position[VERTICAL_COORDINATE] = -1;
+            return position;
+        } else {
+            //get the first character from targetingCell
+            char firstChar = targetingCell.charAt(HORIZONTAL_COORDINATE);
 
-        //get the first character from targetingCell
-        char firstChar = targetingCell.charAt(HORIZONTAL_COORDINATE);
-
-        position[HORIZONTAL_COORDINATE] = charAlphabetConversion(firstChar);
-        position[VERTICAL_COORDINATE] = Character.getNumericValue(targetingCell.charAt(VERTICAL_COORDINATE)) - 1;
-
-        return position;
+            position[HORIZONTAL_COORDINATE] = charAlphabetConversion(firstChar);
+            if (targetingCell.length() == 3){
+                String verticalCoordinate = targetingCell.substring(1);
+                position[VERTICAL_COORDINATE] = (Integer.parseInt(verticalCoordinate) - 1);
+            } else {
+                position[VERTICAL_COORDINATE] = Character.getNumericValue(targetingCell.charAt(VERTICAL_COORDINATE)) - 1;
+            }
+            System.out.println("Attack Coor Row " + position[HORIZONTAL_COORDINATE]);
+            System.out.println("Attack Coor Column " + position[VERTICAL_COORDINATE]);
+            return position;
+        }
     }
 
-
-    //helper function for convertCoordinateToInt
-    //converts string to its numerical value for our numerical coordinates
-    //eg. A || a -> 0
     private int charAlphabetConversion(char currentCharacter){
         int position;
         String convertedFirstChar = Character.toString(currentCharacter);
@@ -113,17 +120,34 @@ public class Board {
         return position;
     }
 
-    //executes an attack on a cell, takes in an AttackCell object
+    public Fortress getFortress() {
+        return fortress;
+    }
+
+    public TankPlacement getTankPlacement() {
+        return tankPlacement;
+    }
+
+    public Cell[][] getGameBoard() {
+        return gameBoard;
+    }
+
+    public AttackCell getCurrentPlayerAttack() {
+        return currentPlayerAttack;
+    }
+
     public void userAttack(AttackCell currentPlayerAttack){
         Cell currentCell = currentPlayerAttack.searchCell(gameBoard);
-        ArrayList<Tank> listOfTanks = tankPlacement.getListOfTanks();
-        for (Tank currentTank : listOfTanks){
+        ArrayList<Tank> listOfAliveTanks = tankPlacement.getListOfAliveTanks();
+        for (Tank currentTank : listOfAliveTanks){
             if (currentTank.getListOfTankCell().contains(currentCell)){
                 if (!currentTank.isDestroyed()) {
                     currentTank.setTankHealth();
                     currentTank.setTankDamage();
                     currentPlayerAttack.updateCell(currentCell);
                     this.currentPlayerAttack = currentPlayerAttack;
+                } else {
+                    listOfAliveTanks.remove(currentTank);
                 }
                 return;
             }
@@ -131,22 +155,7 @@ public class Board {
         currentCell.setCellDisplay(" ");
     }
 
-    // getters and setters
-    public Fortress getFortress() {
-        return this.fortress;
+    public boolean isCheat() {
+        return cheat;
     }
-
-    public TankPlacement getTankPlacement() {
-        return this.tankPlacement;
-    }
-
-    public Cell[][] getGameBoard() {
-        return this.gameBoard;
-    }
-
-    public AttackCell getCurrentPlayerAttack() {
-        return this.currentPlayerAttack;
-    }
-
-
 }
