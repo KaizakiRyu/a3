@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="53a290a4-1418-480d-9970-0ebb618dd7f2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameLogic/Board.java" afterPath="$PROJECT_DIR$/src/GameLogic/Board.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameLogic/Cell.java" afterPath="$PROJECT_DIR$/src/GameLogic/Cell.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/assignment3/GameLogic/Tank.class" afterPath="$PROJECT_DIR$/out/production/assignment3/GameLogic/Tank.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/assignment3/GameLogic/TankPlacement$1.class" afterPath="$PROJECT_DIR$/out/production/assignment3/GameLogic/TankPlacement$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/assignment3/GameLogic/TankPlacement.class" afterPath="$PROJECT_DIR$/out/production/assignment3/GameLogic/TankPlacement.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameLogic/Tank.java" afterPath="$PROJECT_DIR$/src/GameLogic/Tank.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameLogic/TankPlacement.java" afterPath="$PROJECT_DIR$/src/GameLogic/TankPlacement.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UserInterface/DisplayBoard.java" afterPath="$PROJECT_DIR$/src/UserInterface/DisplayBoard.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,8 +26,8 @@
       <file leaf-file-name="main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/UserInterface/main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+            <state relative-caret-position="420">
+              <caret line="28" column="71" lean-forward="true" selection-start-line="28" selection-start-column="71" selection-end-line="28" selection-end-column="71" />
               <folding />
             </state>
           </provider>
@@ -44,7 +46,7 @@
       <file leaf-file-name="Board.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GameLogic/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2235">
+            <state relative-caret-position="1965">
               <caret line="157" column="30" lean-forward="false" selection-start-line="157" selection-start-column="30" selection-end-line="157" selection-end-column="30" />
               <folding>
                 <element signature="e#5082#5083#0" expanded="true" />
@@ -56,8 +58,8 @@
       <file leaf-file-name="DisplayBoard.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/UserInterface/DisplayBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="63" column="41" lean-forward="false" selection-start-line="63" selection-start-column="41" selection-end-line="63" selection-end-column="41" />
+            <state relative-caret-position="525">
+              <caret line="37" column="27" lean-forward="true" selection-start-line="37" selection-start-column="27" selection-end-line="37" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -68,8 +70,8 @@
       <file leaf-file-name="TankPlacement.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GameLogic/TankPlacement.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-960">
-              <caret line="95" column="101" lean-forward="true" selection-start-line="95" selection-start-column="101" selection-end-line="95" selection-end-column="101" />
+            <state relative-caret-position="2290">
+              <caret line="226" column="60" lean-forward="true" selection-start-line="226" selection-start-column="60" selection-end-line="226" selection-end-column="60" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -90,8 +92,8 @@
       <file leaf-file-name="Cell.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GameLogic/Cell.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="654">
-              <caret line="76" column="34" lean-forward="false" selection-start-line="76" selection-start-column="34" selection-end-line="76" selection-end-column="34" />
+            <state relative-caret-position="26">
+              <caret line="9" column="33" lean-forward="false" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="33" />
               <folding>
                 <element signature="e#547#548#0" expanded="true" />
                 <element signature="e#575#576#0" expanded="true" />
@@ -109,9 +111,25 @@
       <file leaf-file-name="Tank.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GameLogic/Tank.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="24" lean-forward="true" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
-              <folding />
+            <state relative-caret-position="390">
+              <caret line="27" column="67" lean-forward="false" selection-start-line="27" selection-start-column="67" selection-end-line="27" selection-end-column="67" />
+              <folding>
+                <element signature="e#733#734#0" expanded="true" />
+                <element signature="e#762#763#0" expanded="true" />
+                <element signature="e#883#884#0" expanded="true" />
+                <marker date="1518744827632" expanded="false" signature="917:927" ph=" { " />
+                <marker date="1518744827632" expanded="false" signature="971:977" ph=" }" />
+                <marker date="1518744827632" expanded="false" signature="1010:1020" ph=" { " />
+                <marker date="1518744827632" expanded="false" signature="1104:1110" ph=" }" />
+                <marker date="1518744827632" expanded="false" signature="1158:1169" ph=" { " />
+                <marker date="1518744827632" expanded="false" signature="1191:1197" ph=" }" />
+                <marker date="1518744827632" expanded="false" signature="1244:1254" ph=" { " />
+                <marker date="1518744827632" expanded="false" signature="1286:1292" ph=" }" />
+                <marker date="1518744827632" expanded="false" signature="1324:1335" ph=" { " />
+                <marker date="1518744827632" expanded="false" signature="1353:1359" ph=" }" />
+                <marker date="1518744827632" expanded="false" signature="1391:1402" ph=" { " />
+                <marker date="1518744827632" expanded="false" signature="1420:1426" ph=" }" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -139,10 +157,10 @@
         <option value="$PROJECT_DIR$/src/GameLogic/Fortress.java" />
         <option value="$PROJECT_DIR$/src/UserInterface/main.java" />
         <option value="$PROJECT_DIR$/src/GameLogic/AttackCell.java" />
-        <option value="$PROJECT_DIR$/src/GameLogic/Tank.java" />
         <option value="$PROJECT_DIR$/src/GameLogic/Board.java" />
         <option value="$PROJECT_DIR$/src/GameLogic/Cell.java" />
         <option value="$PROJECT_DIR$/src/UserInterface/DisplayBoard.java" />
+        <option value="$PROJECT_DIR$/src/GameLogic/Tank.java" />
         <option value="$PROJECT_DIR$/src/GameLogic/TankPlacement.java" />
       </list>
     </option>
@@ -285,7 +303,7 @@
       </extension>
       <option name="MAIN_CLASS_NAME" value="UserInterface.main" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="5 --cheat" />
+      <option name="PROGRAM_PARAMETERS" value="25 --cheat" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -535,13 +553,13 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298887" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3298887" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32750398" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298887" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -552,7 +570,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.399841" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.399841" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -599,7 +617,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="5" />
+      <option name="time" value="10" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -673,7 +691,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="17" column="48" lean-forward="false" selection-start-line="17" selection-start-column="48" selection-end-line="17" selection-end-column="48" />
-          <folding />
+          <folding>
+            <element signature="e#733#734#0" expanded="true" />
+            <element signature="e#762#763#0" expanded="true" />
+            <element signature="e#883#884#0" expanded="true" />
+            <marker date="1518744827632" expanded="false" signature="917:927" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="971:977" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1010:1020" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1104:1110" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1158:1169" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1191:1197" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1244:1254" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1286:1292" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1324:1335" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1353:1359" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1391:1402" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1420:1426" ph=" }" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -752,7 +786,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="24" column="30" lean-forward="false" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
-          <folding />
+          <folding>
+            <element signature="e#733#734#0" expanded="true" />
+            <element signature="e#762#763#0" expanded="true" />
+            <element signature="e#883#884#0" expanded="true" />
+            <marker date="1518744827632" expanded="false" signature="917:927" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="971:977" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1010:1020" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1104:1110" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1158:1169" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1191:1197" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1244:1254" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1286:1292" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1324:1335" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1353:1359" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1391:1402" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1420:1426" ph=" }" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -831,7 +881,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="7" column="27" lean-forward="true" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
-          <folding />
+          <folding>
+            <element signature="e#733#734#0" expanded="true" />
+            <element signature="e#762#763#0" expanded="true" />
+            <element signature="e#883#884#0" expanded="true" />
+            <marker date="1518744827632" expanded="false" signature="917:927" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="971:977" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1010:1020" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1104:1110" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1158:1169" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1191:1197" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1244:1254" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1286:1292" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1324:1335" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1353:1359" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1391:1402" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1420:1426" ph=" }" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -894,7 +960,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#733#734#0" expanded="true" />
+            <element signature="e#762#763#0" expanded="true" />
+            <element signature="e#883#884#0" expanded="true" />
+            <marker date="1518744827632" expanded="false" signature="917:927" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="971:977" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1010:1020" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1104:1110" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1158:1169" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1191:1197" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1244:1254" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1286:1292" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1324:1335" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1353:1359" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1391:1402" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1420:1426" ph=" }" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -947,7 +1029,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
           <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#733#734#0" expanded="true" />
+            <element signature="e#762#763#0" expanded="true" />
+            <element signature="e#883#884#0" expanded="true" />
+            <marker date="1518744827632" expanded="false" signature="917:927" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="971:977" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1010:1020" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1104:1110" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1158:1169" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1191:1197" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1244:1254" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1286:1292" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1324:1335" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1353:1359" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1391:1402" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1420:1426" ph=" }" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1000,15 +1098,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="10" column="29" lean-forward="false" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/UserInterface/main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#733#734#0" expanded="true" />
+            <element signature="e#762#763#0" expanded="true" />
+            <element signature="e#883#884#0" expanded="true" />
+            <marker date="1518744827632" expanded="false" signature="917:927" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="971:977" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1010:1020" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1104:1110" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1158:1169" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1191:1197" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1244:1254" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1286:1292" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1324:1335" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1353:1359" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1391:1402" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1420:1426" ph=" }" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1016,24 +1122,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" column="3" lean-forward="false" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameLogic/Board.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2235">
-          <caret line="157" column="30" lean-forward="false" selection-start-line="157" selection-start-column="30" selection-end-line="157" selection-end-column="30" />
-          <folding>
-            <element signature="e#5082#5083#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameLogic/Tank.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="24" lean-forward="true" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
           <folding />
         </state>
       </provider>
@@ -1046,10 +1134,52 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/UserInterface/main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="71" lean-forward="true" selection-start-line="28" selection-start-column="71" selection-end-line="28" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GameLogic/Board.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1965">
+          <caret line="157" column="30" lean-forward="false" selection-start-line="157" selection-start-column="30" selection-end-line="157" selection-end-column="30" />
+          <folding>
+            <element signature="e#5082#5083#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GameLogic/Tank.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="27" column="67" lean-forward="false" selection-start-line="27" selection-start-column="67" selection-end-line="27" selection-end-column="67" />
+          <folding>
+            <element signature="e#733#734#0" expanded="true" />
+            <element signature="e#762#763#0" expanded="true" />
+            <element signature="e#883#884#0" expanded="true" />
+            <marker date="1518744827632" expanded="false" signature="917:927" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="971:977" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1010:1020" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1104:1110" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1158:1169" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1191:1197" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1244:1254" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1286:1292" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1324:1335" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1353:1359" ph=" }" />
+            <marker date="1518744827632" expanded="false" signature="1391:1402" ph=" { " />
+            <marker date="1518744827632" expanded="false" signature="1420:1426" ph=" }" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/GameLogic/Cell.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="654">
-          <caret line="76" column="34" lean-forward="false" selection-start-line="76" selection-start-column="34" selection-end-line="76" selection-end-column="34" />
+        <state relative-caret-position="26">
+          <caret line="9" column="33" lean-forward="false" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="33" />
           <folding>
             <element signature="e#547#548#0" expanded="true" />
             <element signature="e#575#576#0" expanded="true" />
@@ -1065,8 +1195,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/UserInterface/DisplayBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="63" column="41" lean-forward="false" selection-start-line="63" selection-start-column="41" selection-end-line="63" selection-end-column="41" />
+        <state relative-caret-position="525">
+          <caret line="37" column="27" lean-forward="true" selection-start-line="37" selection-start-column="27" selection-end-line="37" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1075,8 +1205,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GameLogic/TankPlacement.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-960">
-          <caret line="95" column="101" lean-forward="true" selection-start-line="95" selection-start-column="101" selection-end-line="95" selection-end-column="101" />
+        <state relative-caret-position="2290">
+          <caret line="226" column="60" lean-forward="true" selection-start-line="226" selection-start-column="60" selection-end-line="226" selection-end-column="60" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
