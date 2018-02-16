@@ -1,7 +1,6 @@
 package GameLogic;
 
 import java.util.ArrayList;
-import java.util.Timer;
 import java.util.concurrent.*;
 
 /**
@@ -36,10 +35,10 @@ public class TankPlacement {
         return (int)(Math.random() * range) + min;
     }
 
-
     // place all tanks into the game board
     public void placeAllTanks(Cell[][] gameBoard){
         System.out.println("Placing Tank");
+        //create tanks and update the tank cells on the game board
         for (int index = INITIALIZER; index < numberOfTanks; index++) {
             char tankId = (char) (index + TANK_NUMBERING_OFFSET);
             Tank currentTank = new Tank(tankId);
@@ -49,11 +48,15 @@ public class TankPlacement {
                 Runnable r = new Runnable() {
                     @Override
                     public void run() {
-                        Cell firstTankCell = generateRandomTankCell(gameBoard);
-                        firstTankCell.setTankCell(true);
-                        firstTankCell.setId(tankId);
-                        currentTank.addTankCell(firstTankCell);
-                        growTankCell(firstTankCell, gameBoard, currentTank);
+                        int[] firstTankCoord = new int[2];
+                        do {
+                            firstTankCoord[0] = generateRandomTankCell(gameBoard).getCellCoordinate()[0]; //designate firstTankCoord as a random valid tank cell on the board
+                            firstTankCoord[1] = generateRandomTankCell(gameBoard).getCellCoordinate()[1]; //designate firstTankCoord as a random valid tank cell on the board
+
+
+                            // currentTank.addTankCell(firstTankCoord);
+                            growTankCell(firstTankCoord, gameBoard, currentTank);
+                        }while (currentTank.getListOfTankCell().size() != 4);
                     }
                 };
 
@@ -77,34 +80,92 @@ public class TankPlacement {
         this.listOfAliveTanks = this.listOfTanks;
     }
 
-    private void growTankCell(Cell firstTankCell, Cell[][] gameBoard, Tank currentTank) {
-        Cell currentTankCell = firstTankCell;
-        ArrayList<Cell> adjacentCells;
-        int tankShape = randomNum(STARTING_SHAPE,NUM_DIFF_SHAPES);
-        for (int cellPosition = INITIALIZER; cellPosition < MAX_NUMBER_OF_TANK_CELL; cellPosition++) {
-            adjacentCells = getAdjacentCells(currentTankCell, gameBoard);
-            if(adjacentCells.size() == 0) {
-                return;
-            }
-            //if 
-            if (tankShape == T_SHAPE){
-                System.out.println("Making T shape");
-                if (!placeTShape(adjacentCells, currentTankCell, gameBoard, currentTank)){
-                    break;
-                }
-            }
-            else {
-//            int nextCell = (int) Math.ceil(Math.random() * (adjacentCells.size() - CELL_OFFSET));
-                System.out.println("Making a regular one with " + currentTankCell.getId());
-                int nextCell = (int) Math.ceil(Math.random() * (adjacentCells.size() - CELL_OFFSET));
-                currentTankCell = adjacentCells.get(nextCell);
-                currentTankCell.setId(firstTankCell.getId());
-                currentTankCell.setTankCell(true);
-                currentTank.addTankCell(currentTankCell);
-            }
-        }
-    }
 
+    //grows a list of tankcells from firstTankCell and saves all the coordinates in an arraylist<int>
+    //if the length of the arraylist<int> is == 4, iterate through each cell and set isTank to true, and set the tankID, then add to listOfTankCells fo the tank, return true
+    // else return false
+    private boolean growTankCell(int[] firstTankCell, Cell[][] gameBoard, Tank currentTank) {
+
+        int tankShape = randomNum(STARTING_SHAPE,NUM_DIFF_SHAPES);
+
+        int[][] listOfCoords = new int[4][2]; //2d array that stores the list of coordinates that we have iterated over
+
+        //save firstTankCell into listOfCoords
+        listOfCoords[0][0] = firstTankCell[0];
+        listOfCoords[0][1] = firstTankCell[1];
+
+        int[] currentCoord = new int[2];
+        currentCoord = firstTankCell;
+
+//        ArrayList<int[]> validAdjacentCoords;
+
+        for(int i = 1; i < 4; i++) {
+            Cell currentCell = gameBoard[currentCoord[0]][currentCoord[1]]; //find currentcell using currentcoord
+            ArrayList<Cell> validAdjacentCells = getValidAdjacentCells(currentCell, gameBoard); //find an arraylist of adjacent cells
+
+            if(validAdjacentCells.isEmpty()) {
+                break;
+            }
+
+
+            //generate random number from 0 to (validAdjacentCells.size() - 1)
+
+            int nextCellIndex = randomNum(0, validAdjacentCells.size() - 1); //a random index of validAdjacentCells
+            Cell nextCell = validAdjacentCells.get(nextCellIndex); // our chosen random cell
+            int[] nextCoord = nextCell.getCellCoordinate(); //the coordinates of our chosen random cell
+
+            currentCoord = nextCoord;
+
+            listOfCoords[i][0] = currentCoord[0];
+            listOfCoords[i][1] = currentCoord[1];
+
+
+        }
+
+        if(listOfCoords.length < 4) {
+            return false;
+        }
+        else {
+            //save stuff
+
+            //loop through listOfCoords and find the cell in gameboard
+            for(int i = 0; i < listOfCoords.length; i++) {
+                gameBoard[ listOfCoords[i][0] ][ listOfCoords[i][1] ].setId(currentTank.getTankID());
+                gameBoard[ listOfCoords[i][0] ][ listOfCoords[i][1] ].setTankCell(true);
+
+                //save listoftank cells for the currentTank
+
+                currentTank.getListOfTankCell().add(gameBoard[ listOfCoords[i][0] ][ listOfCoords[i][1] ]);
+            }
+
+            return true;
+        }
+
+
+
+
+// Cell currentTankCell = firstTankCell;
+//        ArrayList<Cell> adjacentCells;
+////        int tankShape = randomNum(STARTING_SHAPE,NUM_DIFF_SHAPES);
+//        for (int cellPosition = INITIALIZER; cellPosition < MAX_NUMBER_OF_TANK_CELL; cellPosition++) {
+//            adjacentCells = getValidAdjacentCells(currentTankCell, gameBoard);
+////            if (tankShape == T_SHAPE){
+////                System.out.println("Making T shape");
+////                if (!placeTShape(adjacentCells, currentTankCell, gameBoard, currentTank)){
+////                    break;
+////                }
+////            }
+////            int nextCell = (int) Math.ceil(Math.random() * (adjacentCells.size() - CELL_OFFSET));
+//            if (adjacentCells.size() == 0){
+//                return;
+//            } else {
+//                System.out.println("Making a regular one with " + currentTankCell.getId());
+//                int nextCell = (int) Math.ceil(Math.random() * (adjacentCells.size() - CELL_OFFSET));
+//                currentTankCell = adjacentCells.get(nextCell);
+//                currentTank.addTankCell(currentTankCell);
+//            }
+//        }
+    }
 
     private boolean placeTShape(ArrayList<Cell> adjacentCells, Cell currentCell, Cell[][] gameBoard, Tank currentTank){
         int[] currentPosition = currentCell.getCellCoordinate();
@@ -225,11 +286,13 @@ public class TankPlacement {
     }
 
 
-    //Get the first cell of a tank
+    //Get the first cell of a tank by randomly choosing a spot on the gameboard that is no occupied
     private Cell generateRandomTankCell(Cell[][] gameBoard){
         int firstCellRow;
         int firstCellColumn;
         Cell currentCell;
+
+        //generate a random coordinate that is not a current Tank Cell and is within the bounds of the gameboard
         do {
             firstCellRow = (int) (Math.random() * MAX_CELL_VALUE);
             firstCellColumn = (int) (Math.random() * MAX_CELL_VALUE);
@@ -240,7 +303,7 @@ public class TankPlacement {
 
     //get all adjacent cells
     //then return all cells that are in range and not occupied by other Tanks
-    private ArrayList<Cell> getAdjacentCells(Cell currentTankCell, Cell[][] gameBoard) {
+    private ArrayList<Cell> getValidAdjacentCells(Cell currentTankCell, Cell[][] gameBoard) {
         ArrayList<Cell> validAdjacentCell = new ArrayList<>();
         ArrayList<Cell> allAdjacentCell = new ArrayList<>();
         int currentTankCellHorizontalCoordinate = currentTankCell.getHorizontalCoordinate();
