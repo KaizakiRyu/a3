@@ -14,12 +14,14 @@ public class Board {
     private final int HORIZONTAL_COORDINATE = 0;
     private final int VERTICAL_COORDINATE = 1;
 
+    // constructor
+    // takes in an integer for the numberOfTanks, and a boolean to determine whether the user wants to cheat
     public Board(int numberOfTanks, boolean cheat) {
         if (cheat){
             this.cheat = true;
         }
         this.fortress = new Fortress();
-        this.tankPlacement = new TankPlacement(numberOfTanks, cheat);
+        this.tankPlacement = new TankPlacement(numberOfTanks, cheat); //create a new TankPlacement instance and places all the tanks
         this.gameBoard = initializeBoard();
         tankPlacement.placeAllTanks(this.gameBoard);
     }
@@ -34,6 +36,7 @@ public class Board {
 //            }
 //        }
 
+        //declare 100 new cells, one for each spot on the gameboard, and set the cellCoordinate and cellDisplay
         for (int row = INITIALIZER; row < GRID_DIMENSION; row++){
             for (int column = INITIALIZER; column < GRID_DIMENSION; column++){
                 int cellCoordinate[] = new int[]{row,column};
@@ -45,6 +48,8 @@ public class Board {
         return gameBoard;
     }
 
+    //converts string coordinate to array of ints.
+    //eg: A1 -> [0,0]
     public int[] convertCoordinateToInt(String targetingCell) {
         int[] position = new int[CORDINATES_OF_A_CELL];
         if (targetingCell.length() > 3){
@@ -68,6 +73,8 @@ public class Board {
         }
     }
 
+    //converts a character to its appropriate integer
+    //eg, A -> 0
     private int charAlphabetConversion(char currentCharacter){
         int position;
         String convertedFirstChar = Character.toString(currentCharacter);
@@ -120,22 +127,33 @@ public class Board {
         return position;
     }
 
+    //getter for fortress
     public Fortress getFortress() {
         return fortress;
     }
 
+    //getter for TankPlacement
     public TankPlacement getTankPlacement() {
         return tankPlacement;
     }
 
+    //getter for gameBoard
     public Cell[][] getGameBoard() {
         return gameBoard;
     }
 
+    //getter for the currentPlayerAttack
     public AttackCell getCurrentPlayerAttack() {
         return currentPlayerAttack;
     }
 
+    // executes an attack from the user
+    // paramaters: AttackCell currentPlayerAttack
+    // if the attack is targeting a tank then:
+    // check if the tank is destroyed
+    // if false, decrement tank health, decrement tank damage, update currentPlayerAttack's cell to destroyed
+    // else, remove this tank from the list of alive tanks
+    // change the cellDisplay to " "
     public void userAttack(AttackCell currentPlayerAttack){
         Cell currentCell = currentPlayerAttack.searchCell(gameBoard);
         ArrayList<Tank> listOfAliveTanks = tankPlacement.getListOfAliveTanks();

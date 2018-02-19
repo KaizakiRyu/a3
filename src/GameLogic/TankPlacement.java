@@ -9,9 +9,9 @@ import java.util.concurrent.*;
  */
 
 public class TankPlacement {
-    private ArrayList<Tank> listOfTanks;
-    private ArrayList<Tank> listOfAliveTanks;
-    private boolean cheat;
+    private ArrayList<Tank> listOfTanks; //list of all tanks
+    private ArrayList<Tank> listOfAliveTanks; //list of currently alive tanks
+    private boolean cheat; //boolean that determins whether the user cheated or not
     private int numberOfTanks;
     private final int INITIALIZER = 0;
     private final int GRID_DIMENSION = 10;
@@ -30,6 +30,8 @@ public class TankPlacement {
         this.cheat = cheat;
     }
 
+    // parameters: min integer, max integer
+    // returns a random integer in between the min and max, inclusive of min and max
     public int randomNum(int min, int max){
         int range = (max - min) + 1;
         return (int)(Math.random() * range) + min;
@@ -38,11 +40,12 @@ public class TankPlacement {
     // place all tanks into the game board
     public void placeAllTanks(Cell[][] gameBoard){
         System.out.println("Placing Tank");
+
         //create tanks and update the tank cells on the game board
         for (int index = INITIALIZER; index < numberOfTanks; index++) {
-            char tankId = (char) (index + TANK_NUMBERING_OFFSET);
-            Tank currentTank = new Tank(tankId);
-            listOfTanks.add(currentTank);
+            char tankId = (char) (index + TANK_NUMBERING_OFFSET); //convert the numerical ID of the tank to alpha char
+            Tank currentTank = new Tank(tankId); //create a new tank with the given tankID
+            listOfTanks.add(currentTank); //append listOfTanks with our newly created tank
             ExecutorService service = Executors.newSingleThreadExecutor();
             try {
                 Runnable r = new Runnable() {
@@ -286,7 +289,7 @@ public class TankPlacement {
     }
 
 
-    //Get the first cell of a tank by randomly choosing a spot on the gameboard that is no occupied
+    //Get the first cell of a tank by randomly choosing a spot on the gameboard that is not occupied
     private Cell generateRandomTankCell(Cell[][] gameBoard){
         int firstCellRow;
         int firstCellColumn;
@@ -294,10 +297,11 @@ public class TankPlacement {
 
         //generate a random coordinate that is not a current Tank Cell and is within the bounds of the gameboard
         do {
-            firstCellRow = (int) (Math.random() * MAX_CELL_VALUE);
-            firstCellColumn = (int) (Math.random() * MAX_CELL_VALUE);
+            //pick random int from 0 to MAX_CELL_VALUE = 9 for row and column index
+            firstCellRow = randomNum(0, MAX_CELL_VALUE);
+            firstCellColumn = randomNum(0, MAX_CELL_VALUE);
             currentCell = gameBoard[firstCellRow][firstCellColumn];
-        } while (firstCellRow == GRID_DIMENSION || firstCellColumn == GRID_DIMENSION || currentCell.isTankCell());
+        } while (currentCell.isTankCell()); //check if the cell picked is a tank, if this case is true, repick the random first cell
         return currentCell;
     }
 
