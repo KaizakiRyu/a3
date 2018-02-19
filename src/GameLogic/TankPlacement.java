@@ -293,7 +293,7 @@ public class TankPlacement {
     private Cell generateRandomTankCell(Cell[][] gameBoard){
         int firstCellRow;
         int firstCellColumn;
-        Cell currentCell;
+        Cell currentCell = new Cell();
 
         //generate a random coordinate that is not a current Tank Cell and is within the bounds of the gameboard
 //        do {
@@ -312,7 +312,6 @@ public class TankPlacement {
                 flag = 1;
             }
         }
-
 
         return currentCell;
     }
