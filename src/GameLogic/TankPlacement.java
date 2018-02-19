@@ -56,10 +56,8 @@ public class TankPlacement {
                             firstTankCoord[0] = generateRandomTankCell(gameBoard).getCellCoordinate()[0]; //designate firstTankCoord as a random valid tank cell on the board
                             firstTankCoord[1] = generateRandomTankCell(gameBoard).getCellCoordinate()[1]; //designate firstTankCoord as a random valid tank cell on the board
 
-
-                            // currentTank.addTankCell(firstTankCoord);
-                            growTankCell(firstTankCoord, gameBoard, currentTank);
-                        }while (currentTank.getListOfTankCell().size() != 4);
+                            growTankCell(firstTankCoord, gameBoard, currentTank); //grow the tank starting from the random cell we have initiated
+                        }while (currentTank.getListOfTankCell().size() != 4); //if the size of this tank is not 4, then make a new tank
                     }
                 };
 
@@ -89,7 +87,9 @@ public class TankPlacement {
     // else return false
     private boolean growTankCell(int[] firstTankCell, Cell[][] gameBoard, Tank currentTank) {
 
-        int tankShape = randomNum(STARTING_SHAPE,NUM_DIFF_SHAPES);
+        System.out.println("Started growTankCell");
+
+        int tankShape = randomNum(STARTING_SHAPE,NUM_DIFF_SHAPES); //determine whether to create a regular tank or a t-shape
 
         int[][] listOfCoords = new int[4][2]; //2d array that stores the list of coordinates that we have iterated over
 
@@ -97,36 +97,65 @@ public class TankPlacement {
         listOfCoords[0][0] = firstTankCell[0];
         listOfCoords[0][1] = firstTankCell[1];
 
-        int[] currentCoord = new int[2];
+        int[] currentCoord = new int[2]; //2d array that stores the current coordinates that is being grown
         currentCoord = firstTankCell;
 
 //        ArrayList<int[]> validAdjacentCoords;
+        Cell currentCell;
+        int[] lastCoord = new int[2]; //2d array that stores the last coordinate that was travelled from when growing tank
+        lastCoord[0] = -2; //set lastCoord to an impossible coordinate on gameBoard as a starting value
+        lastCoord[1] = -2;
+        ArrayList<Cell> validAdjacentCells;
+
+        Cell nextCell;
+        //System.out.println("blah");
+        Cell lastCell; //initialize lastCall as an impossible value to start
+        lastCell = null;
+        //System.out.println("blah2");
+
 
         for(int i = 1; i < 4; i++) {
-            Cell currentCell = gameBoard[currentCoord[0]][currentCoord[1]]; //find currentcell using currentcoord
-            ArrayList<Cell> validAdjacentCells = getValidAdjacentCells(currentCell, gameBoard); //find an arraylist of adjacent cells
+            System.out.println("Growing Tank... i = " + i);
+            currentCell = gameBoard[currentCoord[0]][currentCoord[1]]; //find currentcell using currentcoord
+            validAdjacentCells = getValidAdjacentCells(currentCell, gameBoard); //find an arraylist of adjacent cells, list of adjacenet cells that arent tank cells and are within bounds of the gameboard
 
-            if(validAdjacentCells.isEmpty()) {
+            //search validAdjacentCells for the last Cell that we grew our tank from and remove it from our array of valid cells
+            validAdjacentCells.remove(lastCell);
+
+            if(validAdjacentCells.isEmpty()) { //if there are no valid adjacent cells, break out of the loop.
                 break;
             }
 
+            //set our lastCell to our currentCell for the next loop
+            lastCell = currentCell;
+
+            //set our lastCoord as our currentCoord for next loop
+            lastCoord[0] = currentCoord[0];
+            lastCoord[1] = currentCoord[1];
+
+            int nextCellIndex;
 
             //generate random number from 0 to (validAdjacentCells.size() - 1)
+            nextCellIndex = randomNum(0, validAdjacentCells.size() - 1); //a random index of validAdjacentCells
 
-            int nextCellIndex = randomNum(0, validAdjacentCells.size() - 1); //a random index of validAdjacentCells
-            Cell nextCell = validAdjacentCells.get(nextCellIndex); // our chosen random cell
+
+
+            nextCell = validAdjacentCells.get(nextCellIndex); // our chosen random cell
             int[] nextCoord = nextCell.getCellCoordinate(); //the coordinates of our chosen random cell
 
+            //set our currentCoord as nextCoord that we have just found for next loop
             currentCoord = nextCoord;
 
+            //append our listofcoords with our currentcoord
             listOfCoords[i][0] = currentCoord[0];
             listOfCoords[i][1] = currentCoord[1];
-
-
         }
 
         if(listOfCoords.length < 4) {
+            System.out.println("Did not grow tank, listOfCoords.length < 0");
+
             return false;
+
         }
         else {
             //save stuff
@@ -141,33 +170,17 @@ public class TankPlacement {
                 currentTank.getListOfTankCell().add(gameBoard[ listOfCoords[i][0] ][ listOfCoords[i][1] ]);
             }
 
+            System.out.println("Placed tank with ID: " + currentTank.getTankID() + " at");
+            System.out.print("Cell coords: ");
+            for(Cell tankCell: currentTank.getListOfTankCell()) {
+                System.out.print("[" + tankCell.getHorizontalCoordinate() + "][" + tankCell.getVerticalCoordinate() + "], ");
+
+            }
+            System.out.println();
+
             return true;
         }
 
-
-
-
-// Cell currentTankCell = firstTankCell;
-//        ArrayList<Cell> adjacentCells;
-////        int tankShape = randomNum(STARTING_SHAPE,NUM_DIFF_SHAPES);
-//        for (int cellPosition = INITIALIZER; cellPosition < MAX_NUMBER_OF_TANK_CELL; cellPosition++) {
-//            adjacentCells = getValidAdjacentCells(currentTankCell, gameBoard);
-////            if (tankShape == T_SHAPE){
-////                System.out.println("Making T shape");
-////                if (!placeTShape(adjacentCells, currentTankCell, gameBoard, currentTank)){
-////                    break;
-////                }
-////            }
-////            int nextCell = (int) Math.ceil(Math.random() * (adjacentCells.size() - CELL_OFFSET));
-//            if (adjacentCells.size() == 0){
-//                return;
-//            } else {
-//                System.out.println("Making a regular one with " + currentTankCell.getId());
-//                int nextCell = (int) Math.ceil(Math.random() * (adjacentCells.size() - CELL_OFFSET));
-//                currentTankCell = adjacentCells.get(nextCell);
-//                currentTank.addTankCell(currentTankCell);
-//            }
-//        }
     }
 
     private boolean placeTShape(ArrayList<Cell> adjacentCells, Cell currentCell, Cell[][] gameBoard, Tank currentTank){
@@ -295,14 +308,6 @@ public class TankPlacement {
         int firstCellColumn;
         Cell currentCell = new Cell();
 
-        //generate a random coordinate that is not a current Tank Cell and is within the bounds of the gameboard
-//        do {
-//            //pick random int from 0 to MAX_CELL_VALUE = 9 for row and column index
-//            firstCellRow = randomNum(0, MAX_CELL_VALUE);
-//            firstCellColumn = randomNum(0, MAX_CELL_VALUE);
-//            currentCell = gameBoard[firstCellRow][firstCellColumn];
-//        } while (currentCell.isTankCell()); //check if the cell picked is a tank, if this case is true, repick the random first cell
-
         int flag = 0; //flag that activates when the cell picked is not a tank cell, then the while loop exists
         while(flag == 0) {
             firstCellRow = randomNum(0, MAX_CELL_VALUE);
@@ -316,35 +321,108 @@ public class TankPlacement {
         return currentCell;
     }
 
-    //get all adjacent cells
-    //then return all cells that are in range and not occupied by other Tanks
-    private ArrayList<Cell> getValidAdjacentCells(Cell currentTankCell, Cell[][] gameBoard) {
-        ArrayList<Cell> validAdjacentCell = new ArrayList<>();
-        ArrayList<Cell> allAdjacentCell = new ArrayList<>();
-        int currentTankCellHorizontalCoordinate = currentTankCell.getHorizontalCoordinate();
-        int currentTankCellVerticalCoordinate = currentTankCell.getVerticalCoordinate();
 
-        if (isValidCell(currentTankCellHorizontalCoordinate + CELL_OFFSET, currentTankCellVerticalCoordinate)){
-            allAdjacentCell.add(gameBoard[currentTankCellHorizontalCoordinate + CELL_OFFSET][currentTankCellVerticalCoordinate]);
-        }
-        if (isValidCell(currentTankCellHorizontalCoordinate - CELL_OFFSET, currentTankCellVerticalCoordinate)){
-            allAdjacentCell.add(gameBoard[currentTankCellHorizontalCoordinate - CELL_OFFSET][currentTankCellVerticalCoordinate]);
-        }
-        if (isValidCell(currentTankCellHorizontalCoordinate, currentTankCellVerticalCoordinate + CELL_OFFSET)){
-            allAdjacentCell.add(gameBoard[currentTankCellHorizontalCoordinate][currentTankCellVerticalCoordinate + CELL_OFFSET]);
-        }
-        if (isValidCell(currentTankCellHorizontalCoordinate, currentTankCellVerticalCoordinate - CELL_OFFSET)){
-            allAdjacentCell.add(gameBoard[currentTankCellHorizontalCoordinate][currentTankCellVerticalCoordinate - CELL_OFFSET]);
-        }
-        for (Cell currentCell : allAdjacentCell){
-            if (!currentCell.isTankCell()){
-                validAdjacentCell.add(currentCell);
+    //then return all cells that are in range and not occupied by other Tanks
+    //parameters: currentTankCell, gameBoard
+    private ArrayList<Cell> getValidAdjacentCells(Cell currentTankCell, Cell[][] gameBoard) {
+        ArrayList<Cell> validAdjacentCells = new ArrayList<>(); //arraylist of validadjacent cells
+//        ArrayList<Cell> allAdjacentCell = new ArrayList<>(); //arraylist of alladjacent cells
+//        int currentTankCellHorizontalCoordinate = currentTankCell.getHorizontalCoordinate();
+//        int currentTankCellVerticalCoordinate = currentTankCell.getVerticalCoordinate();
+//
+//        if (isValidCell(currentTankCellHorizontalCoordinate + CELL_OFFSET, currentTankCellVerticalCoordinate)){
+//            allAdjacentCell.add(gameBoard[currentTankCellHorizontalCoordinate + CELL_OFFSET][currentTankCellVerticalCoordinate]);
+//        }
+//        if (isValidCell(currentTankCellHorizontalCoordinate - CELL_OFFSET, currentTankCellVerticalCoordinate)){
+//            allAdjacentCell.add(gameBoard[currentTankCellHorizontalCoordinate - CELL_OFFSET][currentTankCellVerticalCoordinate]);
+//        }
+//        if (isValidCell(currentTankCellHorizontalCoordinate, currentTankCellVerticalCoordinate + CELL_OFFSET)){
+//            allAdjacentCell.add(gameBoard[currentTankCellHorizontalCoordinate][currentTankCellVerticalCoordinate + CELL_OFFSET]);
+//        }
+//        if (isValidCell(currentTankCellHorizontalCoordinate, currentTankCellVerticalCoordinate - CELL_OFFSET)){
+//            allAdjacentCell.add(gameBoard[currentTankCellHorizontalCoordinate][currentTankCellVerticalCoordinate - CELL_OFFSET]);
+//        }
+//        for (Cell currentCell : allAdjacentCell){
+//            if (!currentCell.isTankCell()){
+//                validAdjacentCell.add(currentCell);
+//            }
+//        }
+//        return validAdjacentCell;
+
+        ArrayList<Cell> allAdjacentCells = getAllAdjacentCells(currentTankCell, gameBoard);//arraylist of alladjacent cells
+
+        //loop through allAdjacentCells and check which ones are valid, if valid, add to validAdjacentCell arraylist
+
+        for(Cell adjacentCell: allAdjacentCells) {
+            int flag = 0; //flag that is triggered when the cell is invalid (is out of bounds or is a tank cell)
+
+            if(adjacentCell.isTankCell() || !isValidCell(adjacentCell.getHorizontalCoordinate(), adjacentCell.getVerticalCoordinate())) {
+
+                if(adjacentCell.isTankCell() && !isValidCell(adjacentCell.getHorizontalCoordinate(), adjacentCell.getVerticalCoordinate())) {
+                    System.out.println("This is an impossible case.");
+                }
+                else if(adjacentCell.isTankCell()) {
+                    System.out.println("Spot [" + adjacentCell.getHorizontalCoordinate() + "][" + adjacentCell.getVerticalCoordinate() + "] was taken up by a tank cell.");
+                }
+                else if(!isValidCell(adjacentCell.getHorizontalCoordinate(), adjacentCell.getVerticalCoordinate())) {
+                    System.out.println("Spot [" + adjacentCell.getHorizontalCoordinate() + "][" + adjacentCell.getVerticalCoordinate() + "] is invalid.");
+                }
+                flag = 1;
             }
+
+            if(flag == 0) {
+                validAdjacentCells.add(adjacentCell);
+            }
+
         }
-        return validAdjacentCell;
+        return validAdjacentCells;
     }
 
-    private boolean isValidCell(int horizontalCoordinate, int verticalCoordinate){
+    //get all adjacent cells, given a cell and the gameboard
+    private ArrayList<Cell> getAllAdjacentCells(Cell currentTankCell, Cell[][] gameBoard) {
+        ArrayList<Cell> allAdjacentCells = new ArrayList<>(); //arraylist of alladjacent cells
+        int rowCoord = currentTankCell.getHorizontalCoordinate();
+        int colCoord = currentTankCell.getVerticalCoordinate();
+
+        //rowCoord + 1
+        if(rowCoord + 1 < 10 && rowCoord + 1 >= 0) {
+            allAdjacentCells.add(gameBoard[rowCoord + 1][colCoord]);
+        }
+        else {
+            System.out.println("rowCoord = " + (rowCoord + 1) + "is out of bounds");
+        }
+
+        //rowCoord - 1
+        if(rowCoord - 1 < 10 && rowCoord - 1 >= 0) {
+            allAdjacentCells.add(gameBoard[rowCoord - 1][colCoord]);
+        }
+        else {
+            System.out.println("rowCoord = " + (rowCoord - 1) + "is out of bounds");
+        }
+
+        //colCoord + 1
+        if(colCoord + 1 < 10 && colCoord + 1 >= 0) {
+            allAdjacentCells.add(gameBoard[rowCoord][colCoord + 1]);
+        }
+        else {
+            System.out.println("rowCoord = " + (colCoord + 1) + "is out of bounds");
+        }
+
+        //colCoord - 1
+        if(colCoord - 1 < 10 && colCoord - 1 >= 0) {
+            allAdjacentCells.add(gameBoard[rowCoord][colCoord - 1]);
+        }
+        else {
+            System.out.println("rowCoord = " + (colCoord - 1) + "is out of bounds");
+        }
+
+        System.out.println("All Adjacent Cells = " + allAdjacentCells.toString());
+
+        return allAdjacentCells;
+    }
+
+        //returns true if the cell is within bounds, false otherwise
+        private boolean isValidCell(int horizontalCoordinate, int verticalCoordinate){
 //        //check top Cell
 //        if (verticalCoordinate + CELL_OFFSET > MAX_CELL_VALUE){
 //            return false;
