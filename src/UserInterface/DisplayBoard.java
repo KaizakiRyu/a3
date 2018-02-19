@@ -21,6 +21,8 @@ public class DisplayBoard {
     private final int GRID_OFFSET = 1;
 
 
+    // DisplayBoard Constructor
+    // create a new board and designate it as this board
     public DisplayBoard(int numOfTanks, boolean cheat) {
         this.board = new Board(numOfTanks,cheat);
     }
@@ -28,7 +30,7 @@ public class DisplayBoard {
     public void startGame() {
         Fortress gameFortress = board.getFortress();
         int fortressHealth = gameFortress.getFortressHealth();
-        ArrayList<Tank> listOfTanks = board.getTankPlacement().getListOfAliveTanks();
+        ArrayList<Tank> listOfTanks = board.getTankPlacement().getListOfAliveTanks(); //ArrayList of alive tanks
         displayInitialBoard(listOfTanks);
         do {
             System.out.print("Enter your move: ");
