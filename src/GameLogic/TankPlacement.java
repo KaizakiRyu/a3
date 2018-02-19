@@ -296,12 +296,24 @@ public class TankPlacement {
         Cell currentCell;
 
         //generate a random coordinate that is not a current Tank Cell and is within the bounds of the gameboard
-        do {
-            //pick random int from 0 to MAX_CELL_VALUE = 9 for row and column index
+//        do {
+//            //pick random int from 0 to MAX_CELL_VALUE = 9 for row and column index
+//            firstCellRow = randomNum(0, MAX_CELL_VALUE);
+//            firstCellColumn = randomNum(0, MAX_CELL_VALUE);
+//            currentCell = gameBoard[firstCellRow][firstCellColumn];
+//        } while (currentCell.isTankCell()); //check if the cell picked is a tank, if this case is true, repick the random first cell
+
+        int flag = 0; //flag that activates when the cell picked is not a tank cell, then the while loop exists
+        while(flag == 0) {
             firstCellRow = randomNum(0, MAX_CELL_VALUE);
             firstCellColumn = randomNum(0, MAX_CELL_VALUE);
             currentCell = gameBoard[firstCellRow][firstCellColumn];
-        } while (currentCell.isTankCell()); //check if the cell picked is a tank, if this case is true, repick the random first cell
+            if(currentCell.isTankCell() == false) {
+                flag = 1;
+            }
+        }
+
+
         return currentCell;
     }
 
