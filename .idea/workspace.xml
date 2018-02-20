@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="53a290a4-1418-480d-9970-0ebb618dd7f2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/assignment3/GameLogic/Board.class" afterPath="$PROJECT_DIR$/out/production/assignment3/GameLogic/Board.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/assignment3/UserInterface/DisplayBoard.class" afterPath="$PROJECT_DIR$/out/production/assignment3/UserInterface/DisplayBoard.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/assignment3/UserInterface/main.class" afterPath="$PROJECT_DIR$/out/production/assignment3/UserInterface/main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="53a290a4-1418-480d-9970-0ebb618dd7f2" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -62,10 +57,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TankPlacement.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TankPlacement.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GameLogic/TankPlacement.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2214">
+            <state relative-caret-position="-1515">
               <caret line="125" column="0" lean-forward="false" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -94,7 +89,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Tank.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Tank.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GameLogic/Tank.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="414">
@@ -452,12 +447,12 @@
       <workItem from="1519082360192" duration="1559000" />
       <workItem from="1519083960508" duration="268000" />
       <workItem from="1519084474870" duration="1783000" />
-      <workItem from="1519086280998" duration="106000" />
+      <workItem from="1519086280998" duration="142000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7308000" />
+    <option name="totallyTimeSpent" value="7344000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -949,16 +944,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameLogic/TankPlacement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2214">
-          <caret line="125" column="0" lean-forward="false" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/GameLogic/Board.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3024">
@@ -1000,6 +985,16 @@
           <folding>
             <element signature="e#917#918#0" expanded="true" />
             <element signature="e#976#977#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GameLogic/TankPlacement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1515">
+          <caret line="125" column="0" lean-forward="false" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
