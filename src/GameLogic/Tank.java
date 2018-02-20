@@ -34,7 +34,8 @@ public class Tank {
     }
 
     public void setTankDamage(){
-        this.tankDamage = LIST_OF_TANK_DAMAGE[tankDamagePointer - DECREMENT_OF_TANK_DAMAGE];
+        this.tankDamagePointer = tankDamagePointer - DECREMENT_OF_TANK_DAMAGE;
+        this.tankDamage = LIST_OF_TANK_DAMAGE[tankDamagePointer];
     }
 
     public ArrayList<Cell> getListOfTankCell() {
@@ -56,6 +57,7 @@ public class Tank {
     public boolean isDestroyed(){
         if (tankHealth == MIN_TANK_HEALTH)
         {
+            System.out.println("Hi");;
             return true;
         }
         return false;

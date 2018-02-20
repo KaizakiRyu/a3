@@ -523,11 +523,11 @@ public class TankPlacement {
     }
 
     public ArrayList<Tank> getListOfAliveTanks() {
-        return listOfAliveTanks;
+        return this.listOfAliveTanks;
     }
 
     public ArrayList<Tank> getListOfTanks() {
-        return listOfTanks;
+        return this.listOfTanks;
     }
 
     public int getNumberOfTanks() {

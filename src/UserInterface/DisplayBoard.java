@@ -19,7 +19,7 @@ public class DisplayBoard {
     private final int MAX_VERTICAL_COORDINATE = 9;
     private final int ROW_NUMBERING_OFFSET = 65;
     private final int GRID_OFFSET = 1;
-
+    private final int ASCII_OFFSET = 32;
 
     // DisplayBoard Constructor
     // create a new board and designate it as this board
@@ -28,10 +28,11 @@ public class DisplayBoard {
     }
 
     public void startGame() {
+        System.out.println("Starting Game");
         Fortress gameFortress = board.getFortress();
         int fortressHealth = gameFortress.getFortressHealth();
         ArrayList<Tank> listOfTanks = board.getTankPlacement().getListOfAliveTanks(); //ArrayList of alive tanks
-        displayInitialBoard(listOfTanks);
+        printInitialBoard();
         do {
             System.out.print("Enter your move: ");
             Scanner reader = new Scanner(System.in);
@@ -44,31 +45,71 @@ public class DisplayBoard {
                 board.userAttack(currentUserAttack);
                 gameFortress = board.getFortress();
                 fortressHealth = gameFortress.getFortressHealth();
-                listOfTanks = board.getTankPlacement().getListOfTanks();
+                listOfTanks = board.getTankPlacement().getListOfAliveTanks();
+                System.out.println("Alive Tanks: " + listOfTanks.size());
                 printAttackResult(currentUserAttack,gameFortress,listOfTanks);
             }
-        } while(fortressHealth > MIN_FORTRESS_HEALTH || listOfTanks.size() > MIN_AMOUNT_OF_TANK);
+        } while(fortressHealth > MIN_FORTRESS_HEALTH && listOfTanks.size() > MIN_AMOUNT_OF_TANK);
+        printGameBoardResult(board.getGameBoard());
     }
 
-    private void displayInitialBoard(ArrayList<Tank> listOfTanks) {
+    private void printInitialBoard() {
         Cell[][] gameBoard = board.getGameBoard();
         System.out.print("  ");
         for (int columnIndex = (GRID_INITIALIZER + GRID_OFFSET); columnIndex <= GRID; columnIndex++){
             System.out.print(columnIndex + " ");
         }
         System.out.println();
+        if (board.isCheat()){
+            printCheatBoard(gameBoard);
+        } else {
+            printRegularBoard(gameBoard);
+        }
+    }
+
+    private void printCheatBoard(Cell[][] gameBoard){
         for (int row = GRID_INITIALIZER; row < GRID; row++){
             char rowIndex = (char) (row + ROW_NUMBERING_OFFSET);
             System.out.print(rowIndex + " ");
             for (int column = GRID_INITIALIZER; column < GRID; column++){
-                if (board.isCheat()) {
-                    if (gameBoard[row][column].isTankCell()){
-                        System.out.print(gameBoard[row][column].getId() + " ");
+                if (gameBoard[row][column].isTankCell()){
+                    System.out.print(gameBoard[row][column].getId() + " ");
+                } else {
+                    System.out.print(". ");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    private void printRegularBoard(Cell[][] gameBoard){
+        for (int row = GRID_INITIALIZER; row < GRID; row++){
+            char rowIndex = (char) (row + ROW_NUMBERING_OFFSET);
+            System.out.print(rowIndex + " ");
+            for (int column = GRID_INITIALIZER; column < GRID; column++){
+                System.out.print(gameBoard[row][column].getCellDisplay() + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    private void printGameBoardResult(Cell[][] gameBoard){
+        for (int row = GRID_INITIALIZER; row < GRID; row++){
+            char rowIndex = (char) (row + ROW_NUMBERING_OFFSET);
+            System.out.print(rowIndex + " ");
+            for (int column = GRID_INITIALIZER; column < GRID; column++){
+                if (gameBoard[row][column].isTankCell()){
+                    if (gameBoard[row][column].getDestroyed()){
+                        int tankDisplayAscii = (int) gameBoard[row][column].getId();
+                        char convertedDamagedTankCell = (char) (tankDisplayAscii + ASCII_OFFSET);
+                        System.out.print(convertedDamagedTankCell + " ");
                     } else {
-                        System.out.print(". ");
+                        System.out.print(gameBoard[row][column].getId() + " ");
                     }
                 } else {
-                    System.out.print(gameBoard[row][column].getCellDisplay() + " ");
+                    System.out.print(". ");
                 }
             }
             System.out.println();
@@ -105,14 +146,7 @@ public class DisplayBoard {
             System.out.print(columnIndex + " ");
         }
         System.out.println();
-        for (int row = GRID_INITIALIZER; row < GRID; row++){
-            char rowIndex = (char) (row + ROW_NUMBERING_OFFSET);
-            System.out.print(rowIndex + " ");
-            for (int column = GRID_INITIALIZER; column < GRID; column++){
-                System.out.print(gameBoard[row][column].getCellDisplay() + " ");
-            }
-            System.out.println();
-        }
+        printRegularBoard(gameBoard);
         System.out.println("Fortress Structure Left: " + gameFortress.getFortressHealth());
         System.out.println();
     }

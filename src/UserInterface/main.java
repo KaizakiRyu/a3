@@ -32,7 +32,9 @@ public class main {
 
         displayBoard.startGame();
 
-        System.out.println("Started Game");
+
 
     }
+
+
 }

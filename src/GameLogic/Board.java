@@ -10,15 +10,21 @@ public class Board {
     private AttackCell currentPlayerAttack;
     private final int GRID_DIMENSION = 10;
     private final int INITIALIZER = 0;
-    private final int CORDINATES_OF_A_CELL = 2;
+    private final int COORDINATES_OF_A_CELL = 2;
     private final int HORIZONTAL_COORDINATE = 0;
     private final int VERTICAL_COORDINATE = 1;
+    private final int MAX_NUMBER_OF_TANKS = 22;
+    private final int ERROR_CODE = -1;
 
     // constructor
     // takes in an integer for the numberOfTanks, and a boolean to determine whether the user wants to cheat
     public Board(int numberOfTanks, boolean cheat) {
         if (cheat){
             this.cheat = true;
+        }
+        if (hasTooManyTanks(numberOfTanks)){
+            System.out.println("Error: Cannot place all tank onto the field");
+            System.exit(ERROR_CODE);
         }
         this.fortress = new Fortress();
         this.tankPlacement = new TankPlacement(numberOfTanks, cheat); //create a new TankPlacement instance and places all the tanks
@@ -51,7 +57,7 @@ public class Board {
     //converts string coordinate to array of ints.
     //eg: A1 -> [0,0]
     public int[] convertCoordinateToInt(String targetingCell) {
-        int[] position = new int[CORDINATES_OF_A_CELL];
+        int[] position = new int[COORDINATES_OF_A_CELL];
         if (targetingCell.length() > 3){
             position[HORIZONTAL_COORDINATE] = -1;
             position[VERTICAL_COORDINATE] = -1;
@@ -127,6 +133,13 @@ public class Board {
         return position;
     }
 
+    private boolean hasTooManyTanks(int numOfTanks){
+        if (numOfTanks > MAX_NUMBER_OF_TANKS){
+            return true;
+        }
+        return false;
+    }
+
     //getter for fortress
     public Fortress getFortress() {
         return fortress;
@@ -159,12 +172,11 @@ public class Board {
         ArrayList<Tank> listOfAliveTanks = tankPlacement.getListOfAliveTanks();
         for (Tank currentTank : listOfAliveTanks){
             if (currentTank.getListOfTankCell().contains(currentCell)){
-                if (!currentTank.isDestroyed()) {
-                    currentTank.setTankHealth();
-                    currentTank.setTankDamage();
-                    currentPlayerAttack.updateCell(currentCell);
-                    this.currentPlayerAttack = currentPlayerAttack;
-                } else {
+                currentTank.setTankHealth();
+                currentTank.setTankDamage();
+                currentPlayerAttack.updateCell(currentCell);
+                this.currentPlayerAttack = currentPlayerAttack;
+                if (currentTank.isDestroyed()) {
                     listOfAliveTanks.remove(currentTank);
                 }
                 return;
