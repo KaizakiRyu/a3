@@ -22,10 +22,10 @@ public class Board {
         if (cheat){
             this.cheat = true;
         }
-        if (hasTooManyTanks(numberOfTanks)){
-            System.out.println("Error: Cannot place all tank onto the field");
-            System.exit(ERROR_CODE);
-        }
+//        if (hasTooManyTanks(numberOfTanks)){
+//            System.out.println("Error: Cannot place all tank onto the field");
+//            System.exit(ERROR_CODE);
+//        }
         this.fortress = new Fortress();
         this.tankPlacement = new TankPlacement(numberOfTanks, cheat); //create a new TankPlacement instance and places all the tanks
         this.gameBoard = initializeBoard();
