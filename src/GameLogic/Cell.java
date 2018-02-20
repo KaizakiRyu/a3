@@ -27,7 +27,7 @@ public class Cell {
         return id;
     }
 
-    public boolean getDestroyed() {
+    public boolean isDestroyed() {
         return isDestroyed;
     }
 
@@ -68,6 +68,7 @@ public class Cell {
 //        }
 //        return false;
 //    }
+
 
     public boolean isTankCell() {
         return isTankCell;

@@ -25,29 +25,19 @@ public class Tank {
         return tankID;
     }
 
-    public void setListOfTankCell(ArrayList<Cell> listOfTankCell) {
-        this.listOfTankCell = listOfTankCell;
-    }
-
     public void setTankHealth(){
         this.tankHealth -= DECREMENT_OF_TANK_HEALTH;
     }
 
     public void setTankDamage(){
-        this.tankDamage = LIST_OF_TANK_DAMAGE[tankDamagePointer - DECREMENT_OF_TANK_DAMAGE];
+        this.tankDamagePointer = tankDamagePointer - DECREMENT_OF_TANK_DAMAGE;
+        this.tankDamage = LIST_OF_TANK_DAMAGE[tankDamagePointer];
     }
 
     public ArrayList<Cell> getListOfTankCell() {
         return listOfTankCell;
     }
 
-    public void addTankCell(Cell currentCell){
-        listOfTankCell.add(currentCell);
-    }
-
-    public int getTankHealth() {
-        return tankHealth;
-    }
 
     public int getTankDamage() {
         return tankDamage;
@@ -56,6 +46,7 @@ public class Tank {
     public boolean isDestroyed(){
         if (tankHealth == MIN_TANK_HEALTH)
         {
+            System.out.println("Hi");;
             return true;
         }
         return false;

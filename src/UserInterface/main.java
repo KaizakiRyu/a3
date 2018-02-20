@@ -27,6 +27,14 @@ public class main {
             }
         }
         DisplayBoard displayBoard = new DisplayBoard(numOfTanks,cheat);
+
+        System.out.println("Created display board.");
+
         displayBoard.startGame();
+
+
+
     }
+
+
 }
