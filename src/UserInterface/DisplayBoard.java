@@ -54,7 +54,13 @@ public class DisplayBoard {
     }
 
     private boolean isValidInput(String userInput) {
+
+        if(Character.isDigit(userInput.charAt(0))) {
+            return false;
+        }
+
         int[] convertedCoordinate = board.convertCoordinateToInt(userInput);
+
         if (userInput.length() >= NUMBER_OF_COORDINATE_INPUT){
             return true;
         }
@@ -64,6 +70,7 @@ public class DisplayBoard {
         if (convertedCoordinate[VERTICAL_COORDINATE] > MIN_VERTICAL_COORDINATE && convertedCoordinate[VERTICAL_COORDINATE] < MAX_VERTICAL_COORDINATE){
             return true;
         }
+
         return false;
     }
 
