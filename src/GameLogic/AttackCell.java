@@ -18,7 +18,6 @@ public class AttackCell {
     //move this function to userinput class
     //convert string to arrraylist (position on gameboard)
 
-
     //take in gameboard, and check if the targetingCell exists in our gameboard
     public Cell searchCell(Cell[][] gameBoard) {
         //check if the cell exists in our gameboard
@@ -38,12 +37,6 @@ public class AttackCell {
 
 
     //changes isDestroyed to true for the indicated cell since it is targetted.
-    public void updateCell(Cell currentCell) {
-        //change the attacked cell to
-        currentCell.setDestroyed(true);
-        currentCell.setCellDisplay("X");
-        result = true;
-    }
 
     //getters and setters
 //    public boolean getResult() {
@@ -54,8 +47,8 @@ public class AttackCell {
         return this.result;
     }
 
-    public void setResult(boolean newResult) {
-        this.result = newResult;
+    public void setResult(boolean result) {
+        this.result = result;
     }
 
     public int[] getTargetingCell() {

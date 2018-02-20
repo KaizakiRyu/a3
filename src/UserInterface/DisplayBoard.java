@@ -20,6 +20,7 @@ public class DisplayBoard {
     private final int ROW_NUMBERING_OFFSET = 65;
     private final int GRID_OFFSET = 1;
     private final int ASCII_OFFSET = 32;
+    private final int NUMBER_OF_COORDINATE_INPUT = 2;
 
     // DisplayBoard Constructor
     // create a new board and designate it as this board
@@ -37,20 +38,33 @@ public class DisplayBoard {
             System.out.print("Enter your move: ");
             Scanner reader = new Scanner(System.in);
             String userInput = reader.next();
-            int[] convertedCoordinate = board.convertCoordinateToInt(userInput);
-            if (!isInBoardRange(convertedCoordinate)) {
+            if (!isValidInput(userInput)){
                 System.out.println("Invalid target. Please enter a coordinate such as D10.\n");
             } else {
+                int[] convertedCoordinate = board.convertCoordinateToInt(userInput);
                 AttackCell currentUserAttack = new AttackCell(convertedCoordinate);
                 board.userAttack(currentUserAttack);
                 gameFortress = board.getFortress();
-                fortressHealth = gameFortress.getFortressHealth();
                 listOfTanks = board.getTankPlacement().getListOfAliveTanks();
-                System.out.println("Alive Tanks: " + listOfTanks.size());
-                printAttackResult(currentUserAttack,gameFortress,listOfTanks);
+                printAttackResult(currentUserAttack, gameFortress, listOfTanks);
+                fortressHealth = gameFortress.getFortressHealth();
             }
         } while(fortressHealth > MIN_FORTRESS_HEALTH && listOfTanks.size() > MIN_AMOUNT_OF_TANK);
         printGameBoardResult(board.getGameBoard());
+    }
+
+    private boolean isValidInput(String userInput) {
+        int[] convertedCoordinate = board.convertCoordinateToInt(userInput);
+        if (userInput.length() >= NUMBER_OF_COORDINATE_INPUT){
+            return true;
+        }
+        if (convertedCoordinate[HORIZONTAL_COORDINATE] != OUT_OF_BOUND_HORIZONTAL_COORDINATE){
+            return true;
+        }
+        if (convertedCoordinate[VERTICAL_COORDINATE] > MIN_VERTICAL_COORDINATE && convertedCoordinate[VERTICAL_COORDINATE] < MAX_VERTICAL_COORDINATE){
+            return true;
+        }
+        return false;
     }
 
     private void printInitialBoard() {
@@ -96,12 +110,17 @@ public class DisplayBoard {
     }
 
     private void printGameBoardResult(Cell[][] gameBoard){
+        System.out.print("  ");
+        for (int columnIndex = (GRID_INITIALIZER + GRID_OFFSET); columnIndex <= GRID; columnIndex++){
+            System.out.print(columnIndex + " ");
+        }
+        System.out.println();
         for (int row = GRID_INITIALIZER; row < GRID; row++){
             char rowIndex = (char) (row + ROW_NUMBERING_OFFSET);
             System.out.print(rowIndex + " ");
             for (int column = GRID_INITIALIZER; column < GRID; column++){
                 if (gameBoard[row][column].isTankCell()){
-                    if (gameBoard[row][column].getDestroyed()){
+                    if (gameBoard[row][column].isDestroyed()){
                         int tankDisplayAscii = (int) gameBoard[row][column].getId();
                         char convertedDamagedTankCell = (char) (tankDisplayAscii + ASCII_OFFSET);
                         System.out.print(convertedDamagedTankCell + " ");
@@ -117,15 +136,15 @@ public class DisplayBoard {
         System.out.println();
     }
 
-    private boolean isInBoardRange (int[] coordinate){
-        if (coordinate[HORIZONTAL_COORDINATE] == OUT_OF_BOUND_HORIZONTAL_COORDINATE){
-            return false;
-        }
-        if (coordinate[VERTICAL_COORDINATE] < MIN_VERTICAL_COORDINATE || coordinate[VERTICAL_COORDINATE] > MAX_VERTICAL_COORDINATE){
-            return false;
-        }
-        return true;
-    }
+//    private boolean isInBoardRange (int[] coordinate){
+//        if (coordinate[HORIZONTAL_COORDINATE] == OUT_OF_BOUND_HORIZONTAL_COORDINATE){
+//            return false;
+//        }
+//        if (coordinate[VERTICAL_COORDINATE] < MIN_VERTICAL_COORDINATE || coordinate[VERTICAL_COORDINATE] > MAX_VERTICAL_COORDINATE){
+//            return false;
+//        }
+//        return true;
+//    }
 
     private void printAttackResult(AttackCell currentUserAttack, Fortress gameFortress, ArrayList<Tank> listOfTanks){
         if (currentUserAttack.isHit()){
@@ -147,7 +166,14 @@ public class DisplayBoard {
         }
         System.out.println();
         printRegularBoard(gameBoard);
-        System.out.println("Fortress Structure Left: " + gameFortress.getFortressHealth());
+        int fortressHealth = gameFortress.getFortressHealth();
+        if(fortressHealth < MIN_FORTRESS_HEALTH){
+            gameFortress.setFortressHealth(MIN_FORTRESS_HEALTH);
+            System.out.println("Fortress Structure Left: " + MIN_FORTRESS_HEALTH);
+            System.out.println("I'm sorry, your fortress has been smashed!");
+        } else {
+            System.out.println("Fortress Structure Left: " + fortressHealth);
+        }
         System.out.println();
     }
 }

@@ -25,10 +25,6 @@ public class Tank {
         return tankID;
     }
 
-    public void setListOfTankCell(ArrayList<Cell> listOfTankCell) {
-        this.listOfTankCell = listOfTankCell;
-    }
-
     public void setTankHealth(){
         this.tankHealth -= DECREMENT_OF_TANK_HEALTH;
     }
@@ -42,13 +38,6 @@ public class Tank {
         return listOfTankCell;
     }
 
-    public void addTankCell(Cell currentCell){
-        listOfTankCell.add(currentCell);
-    }
-
-    public int getTankHealth() {
-        return tankHealth;
-    }
 
     public int getTankDamage() {
         return tankDamage;

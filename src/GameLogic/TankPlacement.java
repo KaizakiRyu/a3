@@ -1,6 +1,5 @@
 package GameLogic;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.concurrent.*;
 
@@ -12,13 +11,12 @@ import java.util.concurrent.*;
 public class TankPlacement {
     private ArrayList<Tank> listOfTanks; //list of all tanks
     private ArrayList<Tank> listOfAliveTanks; //list of currently alive tanks
-    private boolean cheat; //boolean that determins whether the user cheated or not
     private int numberOfTanks;
     private final int INITIALIZER = 0;
     private final int GRID_DIMENSION = 10;
     private final int MAX_CELL_VALUE = 9;
     private final int MIN_CELL_VALUE = 0;
-    private final int MAX_NUMBER_OF_TANK_CELL = 3;
+    private final int MAX_NUMBER_OF_TANK_CELL = 4;
     private final int CELL_OFFSET = 1;
     private final int NUM_DIFF_SHAPES = 7;
     private final int STARTING_SHAPE = 1;
@@ -26,17 +24,22 @@ public class TankPlacement {
     private final int TANK_NUMBERING_OFFSET = 65;
     private final int ERROR_CODE = -1;
     private final long MAX_WAIT_TIME_IN_SECONDS = 60; //wait for 60 seconds to place all tank
+    private final int NUM_OF_COORDINATES = 2;
+    private final int HORIZONTAL_COORDINATE = 0;
+    private final int VERTICAL_COORDINATE = 1;
+    private final int CELL_COORDINATE_INITIALIZER = -2;
+    private final int RANDOM_NUM_OFFSET = 1;
 
-    public TankPlacement(int numberOfTanks, boolean cheat) {
+
+    public TankPlacement(int numberOfTanks) {
         this.listOfTanks = new ArrayList<>();
         this.numberOfTanks = numberOfTanks;
-        this.cheat = cheat;
     }
 
     // parameters: min integer, max integer
     // returns a random integer in between the min and max, inclusive of min and max
     public int randomNum(int min, int max){
-        int range = (max - min) + 1;
+        int range = (max - min) + RANDOM_NUM_OFFSET;
         return (int)(Math.random() * range) + min;
     }
 
@@ -54,15 +57,16 @@ public class TankPlacement {
                 Runnable r = new Runnable() {
                     @Override
                     public void run() {
-                        int[] firstTankCoord = new int[2];
+                        int[] firstTankCoord = new int[NUM_OF_COORDINATES];
                         long startTime = System.currentTimeMillis(); //fetch starting time
                         do {
                             //keep generating a random coordinate until the chosen coordinate is not a tank cell.
                             int flag1 = 0; //flag that triggers when the chosen coordinate is not a tank cell.
 
                             while(flag1 == 0) {
-                                firstTankCoord[0] = generateRandomTankCell(gameBoard).getCellCoordinate()[0]; //designate firstTankCoord as a random valid tank cell on the board
-                                firstTankCoord[1] = generateRandomTankCell(gameBoard).getCellCoordinate()[1]; //designate firstTankCoord as a random valid tank cell on the board
+                                Cell randomTankCell = generateRandomTankCell(gameBoard);
+                                firstTankCoord[HORIZONTAL_COORDINATE] = randomTankCell.getHorizontalCoordinate(); //designate firstTankCoord as a random valid tank cell on the board
+                                firstTankCoord[VERTICAL_COORDINATE] = randomTankCell.getVerticalCoordinate(); //designate firstTankCoord as a random valid tank cell on the board
 
                                 if(gameBoard[firstTankCoord[0]][firstTankCoord[1]].isTankCell() == false) {
                                     flag1 = 1;
@@ -80,7 +84,7 @@ public class TankPlacement {
 //                                System.exit(ERROR_CODE);
 //                            }
 
-                        }while (currentTank.getListOfTankCell().size() != 4); //if the size of this tank is not 4, then make a new tank
+                        }while (currentTank.getListOfTankCell().size() != MAX_NUMBER_OF_TANK_CELL); //if the size of this tank is not 4, then make a new tank
 
                     }
                 };
@@ -88,17 +92,12 @@ public class TankPlacement {
                 Future<?> f = service.submit(r);
 
                 f.get(MAX_WAIT_TIME_IN_SECONDS, TimeUnit.SECONDS);     // attempt the task for 60 seconds
-            } catch (final InterruptedException e) {
-                // The thread was interrupted during sleep, wait or join
             }
-            catch (final TimeoutException e) {
+            catch (final TimeoutException | InterruptedException | ExecutionException e) {
                 // Took too long!
                 System.out.println();
                 System.err.println("Error: Cannot place all tank onto the field");
                 System.exit(ERROR_CODE);
-            }
-            catch (final ExecutionException e) {
-                // An exception from within the Runnable task
             }
             finally {
                 service.shutdown();
@@ -123,7 +122,7 @@ public class TankPlacement {
         if(tankShape > T_SHAPE) {
             //create tshape
 
-            Cell currentCell = gameBoard[firstTankCell[0]][firstTankCell[1]];
+            Cell currentCell = gameBoard[firstTankCell[HORIZONTAL_COORDINATE]][firstTankCell[VERTICAL_COORDINATE]];
             return placeTShape(currentCell, gameBoard, currentTank);
 
         }
@@ -136,9 +135,9 @@ public class TankPlacement {
 
             //        ArrayList<int[]> validAdjacentCoords;
             Cell currentCell;
-            int[] lastCoord = new int[2]; //2d array that stores the last coordinate that was travelled from when growing tank
-            lastCoord[0] = -2; //set lastCoord to an impossible coordinate on gameBoard as a starting value
-            lastCoord[1] = -2;
+            int[] lastCoord = new int[NUM_OF_COORDINATES]; //2d array that stores the last coordinate that was travelled from when growing tank
+            lastCoord[HORIZONTAL_COORDINATE] = CELL_COORDINATE_INITIALIZER; //set lastCoord to an impossible coordinate on gameBoard as a starting value
+            lastCoord[VERTICAL_COORDINATE] = CELL_COORDINATE_INITIALIZER;
             ArrayList<Cell> validAdjacentCells;
 
             Cell nextCell;
@@ -148,7 +147,7 @@ public class TankPlacement {
             //System.out.println("blah2");
 
 
-            for(int i = 1; i < 4; i++) {
+            for(int i = 1; i < MAX_NUMBER_OF_TANK_CELL; i++) {
                 System.out.println("Growing Tank... i = " + i);
                 currentCell = gameBoard[currentCoord[0]][currentCoord[1]]; //find currentcell using currentcoord
                 validAdjacentCells = getValidAdjacentCells(currentCell, gameBoard); //find an arraylist of adjacent cells, list of adjacenet cells that arent tank cells and are within bounds of the gameboard
@@ -197,13 +196,14 @@ public class TankPlacement {
                 //save stuff
 
                 //loop through listOfCoords and find the cell in gameboard
-                for(int i = 0; i < listOfCoords.size(); i++) {
-                    gameBoard[ listOfCoords.get(i)[0] ][ listOfCoords.get(i)[1] ].setId(currentTank.getTankID());
-                    gameBoard[ listOfCoords.get(i)[0] ][ listOfCoords.get(i)[1] ].setTankCell(true);
+                for(int i = INITIALIZER; i < listOfCoords.size(); i++) {
+                    Cell currentTankCell = gameBoard[ listOfCoords.get(i)[HORIZONTAL_COORDINATE] ][ listOfCoords.get(i)[VERTICAL_COORDINATE] ];
+                    currentTankCell.setId(currentTank.getTankID());
+                    currentTankCell.setTankCell(true);
 
                     //save listoftank cells for the currentTank
 
-                    currentTank.getListOfTankCell().add(gameBoard[ listOfCoords.get(i)[0] ][ listOfCoords.get(i)[1] ]);
+                    currentTank.getListOfTankCell().add(currentTankCell);
                 }
 
                 System.out.println("Placed tank with ID: " + currentTank.getTankID() + " at");
