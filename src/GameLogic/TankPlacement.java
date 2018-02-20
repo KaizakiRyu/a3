@@ -40,7 +40,7 @@ public class TankPlacement {
 
     // place all tanks into the game board
     public void placeAllTanks(Cell[][] gameBoard){
-        System.out.println("Placing Tank");
+        System.out.println("Placing Tanks");
 
         //create tanks and update the tank cells on the game board
         for (int index = INITIALIZER; index < numberOfTanks; index++) {
@@ -63,10 +63,10 @@ public class TankPlacement {
 
                                 if(gameBoard[firstTankCoord[0]][firstTankCoord[1]].isTankCell() == false) {
                                     flag1 = 1;
-                                    System.out.println("Successfully found a random coordinate that is not a tank cell.");
+                                    //System.out.println("Successfully found a random coordinate that is not a tank cell.");
                                 }
                                 else {
-                                    System.out.println("Error, firstTankCell found is already a tank cell, randomly selecting another coordinate");
+                                    //System.out.println("Error, firstTankCell found is already a tank cell, randomly selecting another coordinate");
                                 }
                             }
 
@@ -101,15 +101,15 @@ public class TankPlacement {
     // else return false
     private boolean growTank(int[] firstTankCell, Cell[][] gameBoard, Tank currentTank) {
 
-        System.out.println("Started growTankCell");
+        //System.out.println("Started growTankCell");
 
         int tankShape = randomNum(STARTING_SHAPE,NUM_DIFF_SHAPES); //determine whether to create a regular tank or a t-shape
 
-        System.out.println("tankShape integer = " + tankShape);
+        //System.out.println("tankShape integer = " + tankShape);
 
         if(tankShape == 7) {
             //create tshape
-            System.out.println("Creating t-shape.");
+            //System.out.println("Creating t-shape.");
 
             Cell currentCell = gameBoard[firstTankCell[0]][firstTankCell[1]];
             boolean createdTShape;
@@ -122,7 +122,7 @@ public class TankPlacement {
             return createdTShape;
         }
         else {
-            System.out.print("Creating normal shape");
+            //System.out.print("Creating normal shape");
 
             ArrayList<int[]> listOfCoords = new ArrayList<>();
             listOfCoords.add(firstTankCell);
@@ -145,7 +145,7 @@ public class TankPlacement {
 
 
             for(int i = 1; i < 4; i++) {
-                System.out.println("Growing Tank... i = " + i);
+                //System.out.println("Growing Tank... i = " + i);
                 currentCell = gameBoard[currentCoord[0]][currentCoord[1]]; //find currentcell using currentcoord
                 validAdjacentCells = getValidAdjacentCells(currentCell, gameBoard); //find an arraylist of adjacent cells, list of adjacenet cells that arent tank cells and are within bounds of the gameboard
 
@@ -184,7 +184,7 @@ public class TankPlacement {
             }
 
             if(listOfCoords.size() < 4) {
-                System.out.println("Did not grow tank, listOfCoords.length < 0");
+                //System.out.println("Did not grow tank, listOfCoords.length < 0");
 
                 return false;
 
@@ -202,10 +202,10 @@ public class TankPlacement {
                     currentTank.getListOfTankCell().add(gameBoard[ listOfCoords.get(i)[0] ][ listOfCoords.get(i)[1] ]);
                 }
 
-                System.out.println("Placed tank with ID: " + currentTank.getTankID() + " at");
-                System.out.print("Cell coords: ");
+                //System.out.println("Placed tank with ID: " + currentTank.getTankID() + " at");
+                //System.out.print("Cell coords: ");
                 for(Cell tankCell: currentTank.getListOfTankCell()) {
-                    System.out.print("[" + tankCell.getHorizontalCoordinate() + "][" + tankCell.getVerticalCoordinate() + "], ");
+                    //System.out.print("[" + tankCell.getHorizontalCoordinate() + "][" + tankCell.getVerticalCoordinate() + "], ");
 
                 }
                 System.out.println();
@@ -233,7 +233,7 @@ public class TankPlacement {
     // if there is a valid t-shape, place that t-shape and return true
     // parameters: currentCell, gameBoard, currentTank
     private boolean placeTShape(Cell currentCell, Cell[][] gameBoard, Tank currentTank){
-        System.out.println("Started placeTShape");
+        //System.out.println("Started placeTShape");
 
         // pick the coordinate to place the t-shape
         int[] currentPosition = new int[2];
@@ -247,11 +247,11 @@ public class TankPlacement {
 
         //if there are only two validAdjCells, then break and return false, it is impossible to create a t-shape from this spot.
         if(validAdjCells.size() < 3) {
-            System.out.println("Error, cannot create a t-shape with only two adj cells.");
+            //System.out.println("Error, cannot create a t-shape with only two adj cells.");
             return false;
         }
         else {
-            System.out.println("There are sufficient adjacent cells to create a t-shape, continuing");
+            //System.out.println("There are sufficient adjacent cells to create a t-shape, continuing");
         }
 
 
@@ -268,9 +268,9 @@ public class TankPlacement {
             adjCellCoords.add(currentCoord);
         }
 
-        System.out.println("Populated adjCellCoords");
-        System.out.print("adjCellCoords is of size: " + adjCellCoords.size());
-        System.out.println();
+       // System.out.println("Populated adjCellCoords");
+        //System.out.print("adjCellCoords is of size: " + adjCellCoords.size());
+        //System.out.println();
 
         int[] tempCoord1 = new int[2];
         int[] tempCoord2 = new int [2];
@@ -306,13 +306,13 @@ public class TankPlacement {
             tempCoord3[1] = currentPosition[1];
             tShapeLeft.add(tempCoord3);
 
-            System.out.println("The size of tShapeLeft = " + tShapeLeft.size());
-
-            System.out.print("tShapeLeft Coords: ");
-            for(int[] this_coord : tShapeLeft) {
-                System.out.print("[" + this_coord[0] + "][" + this_coord[1] + "], ");
-            }
-            System.out.println();
+//            System.out.println("The size of tShapeLeft = " + tShapeLeft.size());
+//
+//            System.out.print("tShapeLeft Coords: ");
+//            for(int[] this_coord : tShapeLeft) {
+//                System.out.print("[" + this_coord[0] + "][" + this_coord[1] + "], ");
+//            }
+//            System.out.println();
 
 
         ArrayList<int[]> tShapeTop = new ArrayList<>();
@@ -332,13 +332,13 @@ public class TankPlacement {
             tempCoord6[1] = currentPosition[1] + 1;
             tShapeTop.add(tempCoord6);
 
-            System.out.println("The size of tShapeTop = " + tShapeTop.size());
-
-            System.out.print("tShapeTop Coords: ");
-            for(int[] this_coord : tShapeTop) {
-                System.out.print("[" + this_coord[0] + "][" + this_coord[1] + "], ");
-            }
-            System.out.println();
+//            System.out.println("The size of tShapeTop = " + tShapeTop.size());
+//
+//            System.out.print("tShapeTop Coords: ");
+//            for(int[] this_coord : tShapeTop) {
+//                System.out.print("[" + this_coord[0] + "][" + this_coord[1] + "], ");
+//            }
+//            System.out.println();
 
 
         ArrayList<int[]> tShapeRight = new ArrayList<>();
@@ -358,13 +358,13 @@ public class TankPlacement {
             tempCoord9[1] = currentPosition[1] + 1;
             tShapeRight.add(tempCoord9);
 
-            System.out.println("The size of tShapeRight = " + tShapeRight.size());
-
-            System.out.print("tShapeRight Coords: ");
-            for(int[] this_coord : tShapeRight) {
-                System.out.print("[" + this_coord[0] + "][" + this_coord[1] + "], ");
-            }
-            System.out.println();
+//            System.out.println("The size of tShapeRight = " + tShapeRight.size());
+//
+//            System.out.print("tShapeRight Coords: ");
+//            for(int[] this_coord : tShapeRight) {
+//                System.out.print("[" + this_coord[0] + "][" + this_coord[1] + "], ");
+//            }
+//            System.out.println();
 
 
         ArrayList<int[]> tShapeBottom = new ArrayList<>();
@@ -384,79 +384,46 @@ public class TankPlacement {
             tempCoord12[1] = currentPosition[1] - 1;
             tShapeBottom.add(tempCoord12);
 
-            System.out.println("The size of tShapeBottom = " + tShapeBottom.size());
-
-            System.out.print("tShapeBottom Coords: ");
-            for(int[] this_coord : tShapeBottom) {
-                System.out.print("[" + this_coord[0] + "][" + this_coord[1] + "], ");
-            }
-            System.out.println();
-
-
-//        int bottom = 0; //these aren't being updated.
-//        int left = 0;
-//        int top = 0;
-//        int right = 0;
+//            System.out.println("The size of tShapeBottom = " + tShapeBottom.size());
 //
-//        for(int[] coord: adjCellCoords) {
-//
-//            if(tShapeBottom.contains(coord)) {
-//                bottom++;
-//                System.out.println("bottom = " + bottom);
+//            System.out.print("tShapeBottom Coords: ");
+//            for(int[] this_coord : tShapeBottom) {
+//                System.out.print("[" + this_coord[0] + "][" + this_coord[1] + "], ");
 //            }
-//            if(tShapeLeft.contains(coord)) {
-//                left++;
-//                System.out.println("left = " + left);
-//            }
-//            if(tShapeTop.contains(coord)) {
-//                top++;
-//                System.out.println("top = " + top);
-//            }
-//            if(tShapeRight.contains(coord)) {
-//                right++;
-//                System.out.println("right = " + right);
-//            }
-//        }
-//
-//        System.out.println("bottom = " + bottom);
-//        System.out.println("left = " + left);
-//        System.out.println("top = " + top);
-//        System.out.println("right = " + right);
+//            System.out.println();
 
 
-        //check for the integers == 0, if true, then create the corresponding t-shape and return true;
-        // else, return false
 
         if(isSubset(adjCellCoords, tShapeBottom)) {
             //create bottom t-shape
-            System.out.println("tShapeBottom is a subset of adjCellCoords, setting the tshape");
+            //System.out.println("tShapeBottom is a subset of adjCellCoords, setting the tshape");
             setTShape(currentPosition, tShapeBottom, gameBoard, currentTank);
 
             return true;
         }
         else if(isSubset(adjCellCoords, tShapeLeft)) {
             //create left t-shape
-            System.out.println("tShapeLeft is a subset of adjCellCoords, setting the tshape");
+            //System.out.println("tShapeLeft is a subset of adjCellCoords, setting the tshape");
             setTShape(currentPosition, tShapeLeft, gameBoard, currentTank);
             return true;
         }
         else if(isSubset(adjCellCoords, tShapeTop)) {
             //create top t-shape
-            System.out.println("tShapeTop is a subset of adjCellCoords, setting the tshape");
+            //System.out.println("tShapeTop is a subset of adjCellCoords, setting the tshape");
             setTShape(currentPosition, tShapeTop, gameBoard, currentTank);
 
             return true;
         }
         else if(isSubset(adjCellCoords, tShapeRight)) {
             //create right t-shape
-            System.out.println("tShapeRight is a subset of adjCellCoords, setting the tshape");
+            //System.out.println("tShapeRight is a subset of adjCellCoords, setting the tshape");
             setTShape(currentPosition, tShapeRight, gameBoard, currentTank);
 
             return true;
         }
         else {
 
-            System.out.println("None of the tshape formations is a subset of adjCellCoords, rerolling.");
+            //System.out.println("None of the tshape formations is a subset of adjCellCoords, rerolling.");
 
             return false;
         }
@@ -483,8 +450,8 @@ public class TankPlacement {
 
         //check if the number of elements from arr2 that were found in arr1 is equal to the size of arr2
 
-        System.out.println("arr2.size() = " + arr2.size() );
-        System.out.println("subSet = " + subSet);
+        //System.out.println("arr2.size() = " + arr2.size() );
+        //System.out.println("subSet = " + subSet);
 
         if(subSet == arr2.size()) {
             return true;
@@ -514,13 +481,13 @@ public class TankPlacement {
             currentTank.getListOfTankCell().add(gameBoard[coord[0]][coord[1]]);
         }
 
-        System.out.println("Placed t-shape tank with ID: " + currentTank.getTankID() + " at");
-        System.out.print("Cell coords: ");
-        for(Cell tankCell: currentTank.getListOfTankCell()) {
-            System.out.print("[" + tankCell.getHorizontalCoordinate() + "][" + tankCell.getVerticalCoordinate() + "], ");
-
-        }
-        System.out.println();
+//        System.out.println("Placed t-shape tank with ID: " + currentTank.getTankID() + " at");
+//        System.out.print("Cell coords: ");
+//        for(Cell tankCell: currentTank.getListOfTankCell()) {
+//            System.out.print("[" + tankCell.getHorizontalCoordinate() + "][" + tankCell.getVerticalCoordinate() + "], ");
+//
+//        }
+//        System.out.println();
 
     }
 
@@ -560,13 +527,13 @@ public class TankPlacement {
             if(adjacentCell.isTankCell() || !isValidCell(adjacentCell.getHorizontalCoordinate(), adjacentCell.getVerticalCoordinate())) {
 
                 if(adjacentCell.isTankCell() && !isValidCell(adjacentCell.getHorizontalCoordinate(), adjacentCell.getVerticalCoordinate())) {
-                    System.out.println("This is an impossible case.");
+                    //System.out.println("This is an impossible case.");
                 }
                 else if(adjacentCell.isTankCell()) {
-                    System.out.println("Spot [" + adjacentCell.getHorizontalCoordinate() + "][" + adjacentCell.getVerticalCoordinate() + "] was taken up by a tank cell.");
+                    //System.out.println("Spot [" + adjacentCell.getHorizontalCoordinate() + "][" + adjacentCell.getVerticalCoordinate() + "] was taken up by a tank cell.");
                 }
                 else if(!isValidCell(adjacentCell.getHorizontalCoordinate(), adjacentCell.getVerticalCoordinate())) {
-                    System.out.println("Spot [" + adjacentCell.getHorizontalCoordinate() + "][" + adjacentCell.getVerticalCoordinate() + "] is invalid.");
+                    //System.out.println("Spot [" + adjacentCell.getHorizontalCoordinate() + "][" + adjacentCell.getVerticalCoordinate() + "] is invalid.");
                 }
                 flag = 1;
             }
@@ -590,7 +557,7 @@ public class TankPlacement {
             allAdjacentCells.add(gameBoard[rowCoord + 1][colCoord]);
         }
         else {
-            System.out.println("rowCoord = " + (rowCoord + 1) + " is out of bounds");
+            //System.out.println("rowCoord = " + (rowCoord + 1) + " is out of bounds");
         }
 
         //rowCoord - 1
@@ -598,7 +565,7 @@ public class TankPlacement {
             allAdjacentCells.add(gameBoard[rowCoord - 1][colCoord]);
         }
         else {
-            System.out.println("rowCoord = " + (rowCoord - 1) + " is out of bounds");
+            //System.out.println("rowCoord = " + (rowCoord - 1) + " is out of bounds");
         }
 
         //colCoord + 1
@@ -606,7 +573,7 @@ public class TankPlacement {
             allAdjacentCells.add(gameBoard[rowCoord][colCoord + 1]);
         }
         else {
-            System.out.println("rowCoord = " + (colCoord + 1) + " is out of bounds");
+            //System.out.println("rowCoord = " + (colCoord + 1) + " is out of bounds");
         }
 
         //colCoord - 1
@@ -614,14 +581,14 @@ public class TankPlacement {
             allAdjacentCells.add(gameBoard[rowCoord][colCoord - 1]);
         }
         else {
-            System.out.println("rowCoord = " + (colCoord - 1) + " is out of bounds");
+            //System.out.println("rowCoord = " + (colCoord - 1) + " is out of bounds");
         }
 
-        System.out.print("All Adjacent Cells = ");
-        for(Cell adjCell: allAdjacentCells) {
-            System.out.print("[" + adjCell.getHorizontalCoordinate() + "][" + adjCell.getVerticalCoordinate() + "], ");
-        }
-        System.out.println();
+//        System.out.print("All Adjacent Cells = ");
+//        for(Cell adjCell: allAdjacentCells) {
+//            System.out.print("[" + adjCell.getHorizontalCoordinate() + "][" + adjCell.getVerticalCoordinate() + "], ");
+//        }
+//        System.out.println();
 
         return allAdjacentCells;
     }
