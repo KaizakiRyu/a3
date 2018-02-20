@@ -107,7 +107,7 @@ public class TankPlacement {
 
         System.out.println("tankShape integer = " + tankShape);
 
-        if(tankShape > 0) {
+        if(tankShape == 7) {
             //create tshape
             System.out.println("Creating t-shape.");
 
@@ -236,7 +236,10 @@ public class TankPlacement {
         System.out.println("Started placeTShape");
 
         // pick the coordinate to place the t-shape
-        int[] currentPosition = currentCell.getCellCoordinate();
+        int[] currentPosition = new int[2];
+        currentPosition[0] = currentCell.getHorizontalCoordinate();
+        currentPosition[1] = currentCell.getVerticalCoordinate();
+
 
         // get a list of all valid adjacent cells of the current coordinate
         // adjacent cells that are not occupied by a tank and are within bounds
@@ -269,85 +272,125 @@ public class TankPlacement {
         System.out.print("adjCellCoords is of size: " + adjCellCoords.size());
         System.out.println();
 
-        int[] tempCoord = new int[2];
+        int[] tempCoord1 = new int[2];
+        int[] tempCoord2 = new int [2];
+        int[] tempCoord3 = new int [2];
+        int[] tempCoord4 = new int [2];
+        int[] tempCoord5 = new int [2];
+        int[] tempCoord6 = new int [2];
+        int[] tempCoord7 = new int [2];
+        int[] tempCoord8 = new int [2];
+        int[] tempCoord9 = new int [2];
+        int[] tempCoord10 = new int [2];
+        int[] tempCoord11 = new int [2];
+        int[] tempCoord12 = new int [2];
+
+
+
 
         ArrayList<int[]> tShapeLeft = new ArrayList<>();
 
+
             //bottom cell
-            tempCoord[0] = currentPosition[0] - 1;
-            tempCoord[1] = currentPosition[1];
-            tShapeLeft.add(tempCoord);
+            tempCoord1[0] = currentPosition[0] - 1;
+            tempCoord1[1] = currentPosition[1];
+            tShapeLeft.add(tempCoord1);
 
             //left cell
-            tempCoord[0] = currentPosition[0];
-            tempCoord[1] = currentPosition[1] - 1;
-            tShapeLeft.add(tempCoord);
+            tempCoord2[0] = currentPosition[0];
+            tempCoord2[1] = currentPosition[1] - 1;
+            tShapeLeft.add(tempCoord2);
 
             //top cell
-            tempCoord[0] = currentPosition[0] + 1;
-            tempCoord[1] = currentPosition[1];
-            tShapeLeft.add(tempCoord);
+            tempCoord3[0] = currentPosition[0] + 1;
+            tempCoord3[1] = currentPosition[1];
+            tShapeLeft.add(tempCoord3);
 
             System.out.println("The size of tShapeLeft = " + tShapeLeft.size());
+
+            System.out.print("tShapeLeft Coords: ");
+            for(int[] this_coord : tShapeLeft) {
+                System.out.print("[" + this_coord[0] + "][" + this_coord[1] + "], ");
+            }
+            System.out.println();
+
 
         ArrayList<int[]> tShapeTop = new ArrayList<>();
 
             //left cell
-            tempCoord[0] = currentPosition[0];
-            tempCoord[1] = currentPosition[1] - 1;
-            tShapeTop.add(tempCoord);
+            tempCoord4[0] = currentPosition[0];
+            tempCoord4[1] = currentPosition[1] - 1;
+            tShapeTop.add(tempCoord4);
 
             //top cell
-            tempCoord[0] = currentPosition[0] + 1;
-            tempCoord[1] = currentPosition[1];
-            tShapeTop.add(tempCoord);
+            tempCoord5[0] = currentPosition[0] + 1;
+            tempCoord5[1] = currentPosition[1];
+            tShapeTop.add(tempCoord5);
 
             //right cell
-            tempCoord[0] = currentPosition[0];
-            tempCoord[1] = currentPosition[1] + 1;
-            tShapeTop.add(tempCoord);
+            tempCoord6[0] = currentPosition[0];
+            tempCoord6[1] = currentPosition[1] + 1;
+            tShapeTop.add(tempCoord6);
 
             System.out.println("The size of tShapeTop = " + tShapeTop.size());
+
+            System.out.print("tShapeTop Coords: ");
+            for(int[] this_coord : tShapeTop) {
+                System.out.print("[" + this_coord[0] + "][" + this_coord[1] + "], ");
+            }
+            System.out.println();
 
 
         ArrayList<int[]> tShapeRight = new ArrayList<>();
 
             //bottom cell
-            tempCoord[0] = currentPosition[0] - 1;
-            tempCoord[1] = currentPosition[1];
-            tShapeRight.add(tempCoord);
+            tempCoord7[0] = currentPosition[0] - 1;
+            tempCoord7[1] = currentPosition[1];
+            tShapeRight.add(tempCoord7);
 
             //top cell
-            tempCoord[0] = currentPosition[0] + 1;
-            tempCoord[1] = currentPosition[1];
-            tShapeRight.add(tempCoord);
+            tempCoord8[0] = currentPosition[0] + 1;
+            tempCoord8[1] = currentPosition[1];
+            tShapeRight.add(tempCoord8);
 
             //right cell
-            tempCoord[0] = currentPosition[0];
-            tempCoord[1] = currentPosition[1] + 1;
-            tShapeRight.add(tempCoord);
+            tempCoord9[0] = currentPosition[0];
+            tempCoord9[1] = currentPosition[1] + 1;
+            tShapeRight.add(tempCoord9);
 
             System.out.println("The size of tShapeRight = " + tShapeRight.size());
+
+            System.out.print("tShapeRight Coords: ");
+            for(int[] this_coord : tShapeRight) {
+                System.out.print("[" + this_coord[0] + "][" + this_coord[1] + "], ");
+            }
+            System.out.println();
 
 
         ArrayList<int[]> tShapeBottom = new ArrayList<>();
 
             //bottom cell
-            tempCoord[0] = currentPosition[0] - 1;
-            tempCoord[1] = currentPosition[1];
-            tShapeBottom.add(tempCoord);
+            tempCoord10[0] = currentPosition[0] - 1;
+            tempCoord10[1] = currentPosition[1];
+            tShapeBottom.add(tempCoord10);
 
             //right cell
-            tempCoord[0] = currentPosition[0];
-            tempCoord[1] = currentPosition[1] + 1;
-            tShapeBottom.add(tempCoord);
+            tempCoord11[0] = currentPosition[0];
+            tempCoord11[1] = currentPosition[1] + 1;
+            tShapeBottom.add(tempCoord11);
 
             //left cell
-            tempCoord[0] = currentPosition[0];
-            tempCoord[1] = currentPosition[1] - 1;
-            tShapeBottom.add(tempCoord);
+            tempCoord12[0] = currentPosition[0];
+            tempCoord12[1] = currentPosition[1] - 1;
+            tShapeBottom.add(tempCoord12);
 
             System.out.println("The size of tShapeBottom = " + tShapeBottom.size());
+
+            System.out.print("tShapeBottom Coords: ");
+            for(int[] this_coord : tShapeBottom) {
+                System.out.print("[" + this_coord[0] + "][" + this_coord[1] + "], ");
+            }
+            System.out.println();
 
 
 //        int bottom = 0; //these aren't being updated.
