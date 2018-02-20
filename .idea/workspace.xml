@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="53a290a4-1418-480d-9970-0ebb618dd7f2" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/out/production/assignment3/GameLogic/AttackCell.class" afterPath="$PROJECT_DIR$/out/production/assignment3/GameLogic/AttackCell.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/assignment3/GameLogic/Board.class" afterPath="$PROJECT_DIR$/out/production/assignment3/GameLogic/Board.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/assignment3/GameLogic/Cell.class" afterPath="$PROJECT_DIR$/out/production/assignment3/GameLogic/Cell.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/assignment3/GameLogic/Fortress.class" afterPath="$PROJECT_DIR$/out/production/assignment3/GameLogic/Fortress.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/assignment3/GameLogic/Tank.class" afterPath="$PROJECT_DIR$/out/production/assignment3/GameLogic/Tank.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/assignment3/GameLogic/TankPlacement$1.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/assignment3/GameLogic/TankPlacement.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/assignment3/UserInterface/DisplayBoard.class" afterPath="$PROJECT_DIR$/out/production/assignment3/UserInterface/DisplayBoard.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/assignment3/UserInterface/main.class" afterPath="$PROJECT_DIR$/out/production/assignment3/UserInterface/main.class" />
-      <change beforePath="$PROJECT_DIR$/src/GameLogic/TankPlacement.java" afterPath="$PROJECT_DIR$/src/GameLogic/TankPlacement.java" />
-    </list>
+    <list default="true" id="53a290a4-1418-480d-9970-0ebb618dd7f2" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -75,8 +62,8 @@
       <file leaf-file-name="TankPlacement.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GameLogic/TankPlacement.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="687">
-              <caret line="68" column="62" lean-forward="false" selection-start-line="68" selection-start-column="62" selection-end-line="68" selection-end-column="62" />
+            <state relative-caret-position="200">
+              <caret line="272" column="24" lean-forward="false" selection-start-line="272" selection-start-column="24" selection-end-line="272" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#22869#22870#0" expanded="true" />
@@ -1173,8 +1160,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GameLogic/TankPlacement.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="687">
-          <caret line="68" column="62" lean-forward="false" selection-start-line="68" selection-start-column="62" selection-end-line="68" selection-end-column="62" />
+        <state relative-caret-position="200">
+          <caret line="272" column="24" lean-forward="false" selection-start-line="272" selection-start-column="24" selection-end-line="272" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#22869#22870#0" expanded="true" />
