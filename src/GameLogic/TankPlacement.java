@@ -10,9 +10,8 @@ import java.util.concurrent.*;
  */
 
 public class TankPlacement {
-    private ArrayList<Tank> listOfTanks; //list of all tanks
-    private ArrayList<Tank> listOfAliveTanks; //list of currently alive tanks
-    private boolean cheat; //boolean that determins whether the user cheated or not
+    private ArrayList<Tank> listOfTanks;
+    private ArrayList<Tank> listOfAliveTanks;
     private int numberOfTanks;
     private final int INITIALIZER = 0;
     private final int GRID_DIMENSION = 10;
@@ -25,30 +24,24 @@ public class TankPlacement {
     private final int T_SHAPE = 7;
     private final int TANK_NUMBERING_OFFSET = 65;
     private final int ERROR_CODE = -1;
-    private final long TANK_PLACEMENT_WAIT_TIME = 5;
+    private final long TANK_PLACEMENT_WAIT_TIME = 60;
 
-    public TankPlacement(int numberOfTanks, boolean cheat) {
+    public TankPlacement(int numberOfTanks) {
         this.listOfTanks = new ArrayList<>();
         this.numberOfTanks = numberOfTanks;
-        this.cheat = cheat;
     }
 
-    // parameters: min integer, max integer
-    // returns a random integer in between the min and max, inclusive of min and max
     public int randomNum(int min, int max){
         int range = (max - min) + 1;
         return (int)(Math.random() * range) + min;
     }
 
-    // place all tanks into the game board
     public void placeAllTanks(Cell[][] gameBoard){
         System.out.println("Placing Tanks");
-
-        //create tanks and update the tank cells on the game board
         for (int index = INITIALIZER; index < numberOfTanks; index++) {
-            char tankId = (char) (index + TANK_NUMBERING_OFFSET); //convert the numerical ID of the tank to alpha char
-            Tank currentTank = new Tank(tankId); //create a new tank with the given tankID
-            listOfTanks.add(currentTank); //append listOfTanks with our newly created tank
+            char tankId = (char) (index + TANK_NUMBERING_OFFSET);
+            Tank currentTank = new Tank(tankId);
+            listOfTanks.add(currentTank);
             ExecutorService service = Executors.newSingleThreadExecutor();
             try {
                 Runnable r = new Runnable() {
@@ -56,29 +49,20 @@ public class TankPlacement {
                     public void run() {
                         int[] firstTankCoord = new int[2];
                         do {
-                            //keep generating a random coordinate until the chosen coordinate is not a tank cell.
-                            int flag1 = 0; //flag that triggers when the chosen coordinate is not a tank cell.
-
+                            int flag1 = 0;
                             while(flag1 == 0) {
-                                firstTankCoord[0] = generateRandomTankCell(gameBoard).getCellCoordinate()[0]; //designate firstTankCoord as a random valid tank cell on the board
-                                firstTankCoord[1] = generateRandomTankCell(gameBoard).getCellCoordinate()[1]; //designate firstTankCoord as a random valid tank cell on the board
+                                firstTankCoord[0] = generateRandomTankCell(gameBoard).getCellCoordinate()[0];
+                                firstTankCoord[1] = generateRandomTankCell(gameBoard).getCellCoordinate()[1];
 
                                 if(gameBoard[firstTankCoord[0]][firstTankCoord[1]].isTankCell() == false) {
                                     flag1 = 1;
-                                    //System.out.println("Successfully found a random coordinate that is not a tank cell.");
-                                }
-                                else {
-                                    //System.out.println("Error, firstTankCell found is already a tank cell, randomly selecting another coordinate");
                                 }
                             }
-
-                            growTank(firstTankCoord, gameBoard, currentTank); //grow the tank starting from the random cell we have initiated
-                        }while (currentTank.getListOfTankCell().size() != 4); //if the size of this tank is not 4, then make a new tank
+                            growTank(firstTankCoord, gameBoard, currentTank);
+                        }while (currentTank.getListOfTankCell().size() != 4);
                     }
                 };
-
                 Future<?> f = service.submit(r);
-
                 f.get(TANK_PLACEMENT_WAIT_TIME, TimeUnit.SECONDS);
             } catch (final InterruptedException | TimeoutException | ExecutionException e) {
                 System.err.println("Error: Unable to place all tanks");
@@ -88,18 +72,10 @@ public class TankPlacement {
                 service.shutdown();
             }
         }
-        System.out.println("Done Placing");
         this.listOfAliveTanks = this.listOfTanks;
     }
 
-
-    //grows a list of tankcells from firstTankCell and saves all the coordinates in an arraylist<int>
-    //if the length of the arraylist<int> is == 4, iterate through each cell and set isTank to true, and set the tankID, then add to listOfTankCells fo the tank, return true
-    // else return false
     private boolean growTank(int[] firstTankCell, Cell[][] gameBoard, Tank currentTank) {
-
-        //System.out.println("Started growTankCell");
-
         int tankShape = randomNum(STARTING_SHAPE,NUM_DIFF_SHAPES); //determine whether to create a regular tank or a t-shape
 
         //System.out.println("tankShape integer = " + tankShape);
