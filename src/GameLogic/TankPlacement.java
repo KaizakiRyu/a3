@@ -24,6 +24,8 @@ public class TankPlacement {
     private final int STARTING_SHAPE = 1;
     private final int T_SHAPE = 7;
     private final int TANK_NUMBERING_OFFSET = 65;
+    private final int ERROR_CODE = -1;
+    private final long TANK_PLACEMENT_WAIT_TIME = 5;
 
     public TankPlacement(int numberOfTanks, boolean cheat) {
         this.listOfTanks = new ArrayList<>();
@@ -77,15 +79,10 @@ public class TankPlacement {
 
                 Future<?> f = service.submit(r);
 
-                f.get(5, TimeUnit.SECONDS);     // attempt the task for 60 seconds
-            } catch (final InterruptedException e) {
-                // The thread was interrupted during sleep, wait or join
-            }
-            catch (final TimeoutException e) {
-                // Took too long!
-            }
-            catch (final ExecutionException e) {
-                // An exception from within the Runnable task
+                f.get(TANK_PLACEMENT_WAIT_TIME, TimeUnit.SECONDS);
+            } catch (final InterruptedException | TimeoutException | ExecutionException e) {
+                System.err.println("Error: Unable to place all tanks");
+                System.exit(ERROR_CODE);
             }
             finally {
                 service.shutdown();
