@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="53a290a4-1418-480d-9970-0ebb618dd7f2" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/assignment3/GameLogic/Board.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/assignment3/GameLogic/TankPlacement$1.class" afterPath="$PROJECT_DIR$/out/production/assignment3/GameLogic/TankPlacement$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/assignment3/GameLogic/TankPlacement.class" afterPath="$PROJECT_DIR$/out/production/assignment3/GameLogic/TankPlacement.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameLogic/TankPlacement.java" afterPath="$PROJECT_DIR$/src/GameLogic/TankPlacement.java" />
-    </list>
+    <list default="true" id="53a290a4-1418-480d-9970-0ebb618dd7f2" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -66,8 +60,8 @@
       <file leaf-file-name="TankPlacement.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GameLogic/TankPlacement.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="61">
-              <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+            <state relative-caret-position="277">
+              <caret line="44" column="41" lean-forward="true" selection-start-line="44" selection-start-column="41" selection-end-line="44" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -484,12 +478,12 @@
       <workItem from="1518220038250" duration="84000" />
       <workItem from="1519243390602" duration="1591000" />
       <workItem from="1519245081868" duration="1792000" />
-      <workItem from="1519246896844" duration="221000" />
+      <workItem from="1519246896844" duration="266000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10228000" />
+    <option name="totallyTimeSpent" value="10273000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1151,8 +1145,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GameLogic/TankPlacement.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="61">
-          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+        <state relative-caret-position="277">
+          <caret line="44" column="41" lean-forward="true" selection-start-line="44" selection-start-column="41" selection-end-line="44" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
