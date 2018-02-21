@@ -24,7 +24,7 @@ public class TankPlacement {
     private final int T_SHAPE = 7;
     private final int TANK_NUMBERING_OFFSET = 65;
     private final int ERROR_CODE = -1;
-    private final long TANK_PLACEMENT_WAIT_TIME = 60;
+    private final long TANK_PLACEMENT_WAIT_TIME = 5;
 
     public TankPlacement(int numberOfTanks) {
         this.listOfTanks = new ArrayList<>();

@@ -27,7 +27,7 @@ public class Board {
             this.cheat = true;
         }
         this.fortress = new Fortress();
-        this.tankPlacement = new TankPlacement(numberOfTanks, cheat); //create a new TankPlacement instance and places all the tanks
+        this.tankPlacement = new TankPlacement(numberOfTanks); //create a new TankPlacement instance and places all the tanks
         this.gameBoard = initializeBoard();
         tankPlacement.placeAllTanks(this.gameBoard);
     }
