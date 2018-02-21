@@ -13,8 +13,12 @@ public class Board {
     private final int COORDINATES_OF_A_CELL = 2;
     private final int HORIZONTAL_COORDINATE = 0;
     private final int VERTICAL_COORDINATE = 1;
+    private final int NEXT_VERTICAL_COORDINATE = 2;
     private final int MAX_NUMBER_OF_TANKS = 22;
     private final String HIT_TANK = "X";
+    private final int OUT_OF_BOUND_COORDINATE = -1;
+    private final int COORDINATE_OFFSET = 1;
+    private final int MAX_COORDINATE_INPUT = 3;
 
     // constructor
     // takes in an integer for the numberOfTanks, and a boolean to determine whether the user wants to cheat
@@ -54,25 +58,34 @@ public class Board {
     //eg: A1 -> [0,0]
     public int[] convertCoordinateToInt(String targetingCell) {
         int[] position = new int[COORDINATES_OF_A_CELL];
-        if (targetingCell.length() > 3){
-            position[HORIZONTAL_COORDINATE] = -1;
-            position[VERTICAL_COORDINATE] = -1;
+        if (!isValidCell(targetingCell)){
+            position[HORIZONTAL_COORDINATE] = OUT_OF_BOUND_COORDINATE;
+            position[VERTICAL_COORDINATE] = OUT_OF_BOUND_COORDINATE;
             return position;
         } else {
             //get the first character from targetingCell
             char firstChar = targetingCell.charAt(HORIZONTAL_COORDINATE);
-
             position[HORIZONTAL_COORDINATE] = charAlphabetConversion(firstChar);
-            if (targetingCell.length() == 3){
-                String verticalCoordinate = targetingCell.substring(1);
-                position[VERTICAL_COORDINATE] = (Integer.parseInt(verticalCoordinate) - 1);
+            if (targetingCell.length() == MAX_COORDINATE_INPUT){
+                String verticalCoordinate = targetingCell.substring(VERTICAL_COORDINATE);
+                position[VERTICAL_COORDINATE] = (Integer.parseInt(verticalCoordinate) - COORDINATE_OFFSET);
             } else {
-                position[VERTICAL_COORDINATE] = Character.getNumericValue(targetingCell.charAt(VERTICAL_COORDINATE)) - 1;
+                position[VERTICAL_COORDINATE] = Character.getNumericValue(targetingCell.charAt(VERTICAL_COORDINATE)) - COORDINATE_OFFSET;
             }
-            System.out.println("Attack Coor Row " + position[HORIZONTAL_COORDINATE]);
-            System.out.println("Attack Coor Column " + position[VERTICAL_COORDINATE]);
             return position;
         }
+    }
+
+    private boolean isValidCell(String targetingCell){
+        if (targetingCell.length() > MAX_COORDINATE_INPUT){
+            return false;
+        }
+        if (targetingCell.length() == MAX_COORDINATE_INPUT){
+            if(!(Character.isDigit(targetingCell.charAt(NEXT_VERTICAL_COORDINATE)))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     //converts a character to its appropriate integer

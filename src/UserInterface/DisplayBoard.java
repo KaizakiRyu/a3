@@ -20,7 +20,6 @@ public class DisplayBoard {
     private final int ROW_NUMBERING_OFFSET = 65;
     private final int GRID_OFFSET = 1;
     private final int ASCII_OFFSET = 32;
-    private final int NUMBER_OF_COORDINATE_INPUT = 2;
 
     // DisplayBoard Constructor
     // create a new board and designate it as this board
@@ -36,42 +35,52 @@ public class DisplayBoard {
         printInitialBoard();
         do {
             System.out.print("Enter your move: ");
-            Scanner reader = new Scanner(System.in);
-            String userInput = reader.next();
-            if (!isValidInput(userInput)){
-                System.out.println("Invalid target. Please enter a coordinate such as D10.\n");
-            } else {
-                int[] convertedCoordinate = board.convertCoordinateToInt(userInput);
-                AttackCell currentUserAttack = new AttackCell(convertedCoordinate);
-                board.userAttack(currentUserAttack);
-                gameFortress = board.getFortress();
-                listOfTanks = board.getTankPlacement().getListOfAliveTanks();
-                printAttackResult(currentUserAttack, gameFortress, listOfTanks);
-                fortressHealth = gameFortress.getFortressHealth();
-            }
-        } while(fortressHealth > MIN_FORTRESS_HEALTH && listOfTanks.size() > MIN_AMOUNT_OF_TANK);
+        } while(!isFinish(gameFortress,listOfTanks));
         printGameBoardResult(board.getGameBoard());
     }
 
-    private boolean isValidInput(String userInput) {
+    private boolean isFinish(Fortress gameFortress, ArrayList<Tank> listOfTanks){
+        Scanner reader = new Scanner(System.in);
+        String userInput = reader.next();
+        if (!isValidInput(userInput)){
+            System.out.println("Invalid target. Please enter a coordinate such as D10.\n");
+            return false;
+        } else {
+            int[] convertedCoordinate = board.convertCoordinateToInt(userInput);
+            AttackCell currentUserAttack = new AttackCell(convertedCoordinate);
+            board.userAttack(currentUserAttack);
+            gameFortress = board.getFortress();
+            listOfTanks = board.getTankPlacement().getListOfAliveTanks();
+            printAttackResult(currentUserAttack, gameFortress, listOfTanks);
+        }
+        int fortressHealth = gameFortress.getFortressHealth();
+        if (fortressHealth <= MIN_FORTRESS_HEALTH || listOfTanks.size() <= MIN_AMOUNT_OF_TANK){
+            if (fortressHealth <= MIN_FORTRESS_HEALTH){
+                System.out.println("I'm sorry, your fortress has been smashed!");
+            } else {
+                System.out.println("Congratulations! You won!");
+            }
+            System.out.println();
+            return true;
+        }
+        return false;
+    }
 
-        if(Character.isDigit(userInput.charAt(0))) {
+    private boolean isValidInput(String userInput) {
+        if(Character.isDigit(userInput.charAt(HORIZONTAL_COORDINATE))) {
             return false;
         }
-
+        if(!(Character.isDigit(userInput.charAt(VERTICAL_COORDINATE)))) {
+            return false;
+        }
         int[] convertedCoordinate = board.convertCoordinateToInt(userInput);
-
-        if (userInput.length() >= NUMBER_OF_COORDINATE_INPUT){
-            return true;
+        if (convertedCoordinate[HORIZONTAL_COORDINATE] == OUT_OF_BOUND_HORIZONTAL_COORDINATE){
+            return false;
         }
-        if (convertedCoordinate[HORIZONTAL_COORDINATE] != OUT_OF_BOUND_HORIZONTAL_COORDINATE){
-            return true;
+        if (convertedCoordinate[VERTICAL_COORDINATE] < MIN_VERTICAL_COORDINATE || convertedCoordinate[VERTICAL_COORDINATE] > MAX_VERTICAL_COORDINATE){
+            return false;
         }
-        if (convertedCoordinate[VERTICAL_COORDINATE] > MIN_VERTICAL_COORDINATE && convertedCoordinate[VERTICAL_COORDINATE] < MAX_VERTICAL_COORDINATE){
-            return true;
-        }
-
-        return false;
+        return true;
     }
 
     private void printInitialBoard() {
@@ -141,17 +150,8 @@ public class DisplayBoard {
             System.out.println();
         }
         System.out.println();
+        System.out.println("(Lower case tank letters are where you shot.)");
     }
-
-//    private boolean isInBoardRange (int[] coordinate){
-//        if (coordinate[HORIZONTAL_COORDINATE] == OUT_OF_BOUND_HORIZONTAL_COORDINATE){
-//            return false;
-//        }
-//        if (coordinate[VERTICAL_COORDINATE] < MIN_VERTICAL_COORDINATE || coordinate[VERTICAL_COORDINATE] > MAX_VERTICAL_COORDINATE){
-//            return false;
-//        }
-//        return true;
-//    }
 
     private void printAttackResult(AttackCell currentUserAttack, Fortress gameFortress, ArrayList<Tank> listOfTanks){
         if (currentUserAttack.isHit()){
@@ -177,10 +177,8 @@ public class DisplayBoard {
         if(fortressHealth < MIN_FORTRESS_HEALTH){
             gameFortress.setFortressHealth(MIN_FORTRESS_HEALTH);
             System.out.println("Fortress Structure Left: " + MIN_FORTRESS_HEALTH);
-            System.out.println("I'm sorry, your fortress has been smashed!");
         } else {
             System.out.println("Fortress Structure Left: " + fortressHealth);
         }
-        System.out.println();
     }
 }
